@@ -56,14 +56,13 @@ public class TileEntityBarrelRenderer extends TileEntitySpecialRenderer {
         itemRenderer.setRenderManager(RenderManager.instance);
     }
 
-    public void render(TileEntityBarrel tile, double x, double y, double z, float partialTick) {
+    public void render(TileEntityBarrel tile, double x, double y, double z) {
         if (tile == null) {
             return;
         }
 
         BarrelType type = tile.getType();
         if (tile.getWorldObj() != null) {
-
             int typ = tile.getWorldObj().getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
             type = BarrelType.values()[typ];
         }
@@ -121,6 +120,6 @@ public class TileEntityBarrelRenderer extends TileEntitySpecialRenderer {
     }
 
     public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTick) {
-        render((TileEntityBarrel) tileentity, x, y, z, partialTick);
+        render((TileEntityBarrel) tileentity, x, y, z);
     }
 }
