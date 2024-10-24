@@ -1,0 +1,18 @@
+barrel.wood.name=Wooden Barrel
+barrel.iron.name=Iron Barrel
+barrel.gold.name=Gold Barrel
+barrel.diamond.name=Diamond Barrel
+barrel.copper.name=Copper Barrel
+barrel.silver.name=Silver Barrel
+barrel.crystal.name=Crystal Barrel
+barrel.obsidian.name=Obsidian Barrel
+
+item.ironGold.name=Iron To Gold Barrel Upgrade
+item.goldDiamond.name=Gold To Diamond Barrel Upgrade
+item.copperSilver.name=Copper To Silver Barrel Upgrade
+item.silverGold.name=Silver To Gold Barrel Upgrade
+item.copperIron.name=Copper To Iron Barrel Upgrade
+item.diamondCrystal.name=Diamond To Crystal Barrel Upgrade
+item.woodIron.name=Wooden To Iron Barrel Upgrade
+item.woodCopper.name=Wooden To Copper Barrel Upgrade
+item.diamondObsidian.name=Diamond To Obsidian Barrel Upgrade
