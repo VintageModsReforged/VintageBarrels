@@ -1,7 +1,6 @@
 package vintage.mods.barrels;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
 import vintage.mods.barrels.items.ItemBarrelChanger;
 
 import static vintage.mods.barrels.BarrelType.*;
