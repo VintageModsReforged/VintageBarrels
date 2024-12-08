@@ -47,6 +47,11 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         return type.name();
     }
 
+    @Override
+    public boolean isInvNameLocalized() {
+        return false;
+    }
+
     public BarrelType getType() {
         return type;
     }
@@ -211,12 +216,13 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
     }
 
     @Override
-    public void receiveClientEvent(int i, int j) {
+    public boolean receiveClientEvent(int i, int j) {
         if (i == 1) {
             numUsingPlayers = j;
         } else if (i == 3) {
             numUsingPlayers = (j & 0xF8) >> 3;
         }
+        return true;
     }
 
 
@@ -232,6 +238,11 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         if (worldObj == null) return;
         numUsingPlayers--;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
+    }
+
+    @Override
+    public boolean isStackValidForSlot(int index, ItemStack stack) {
+        return true;
     }
 
     public TileEntityBarrel applyUpgradeItem(ItemBarrelChanger itemBarrelChanger) {

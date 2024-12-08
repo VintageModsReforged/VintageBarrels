@@ -25,34 +25,29 @@ public class TileEntityBarrelRenderer extends TileEntitySpecialRenderer {
 
     private Random random;
 
-    private RenderItem itemRenderer;
+    private RenderItem itemRenderer = new RenderItem() {
+        public byte getMiniBlockCount(ItemStack stack) {
+            return SignedBytes.saturatedCast((long)(Math.min(stack.stackSize / 32, 15) + 1));
+        }
+
+        public byte getMiniItemCount(ItemStack stack) {
+            return SignedBytes.saturatedCast((long)(Math.min(stack.stackSize / 32, 7) + 1));
+        }
+
+        public boolean shouldBob() {
+            return false;
+        }
+
+        public boolean shouldSpreadItems() {
+            return false;
+        }
+    };
 
     private static float[][] shifts = {{0.3F, 0.45F, 0.3F}, {0.7F, 0.45F, 0.3F}, {0.3F, 0.45F, 0.7F}, {0.7F, 0.45F, 0.7F}, {0.3F, 0.1F, 0.3F},
             {0.7F, 0.1F, 0.3F}, {0.3F, 0.1F, 0.7F}, {0.7F, 0.1F, 0.7F}, {0.5F, 0.32F, 0.5F},};
 
     public TileEntityBarrelRenderer() {
         random = new Random();
-        itemRenderer = new RenderItem() {
-            @Override
-            public byte getMiniBlockCountForItemStack(ItemStack stack) {
-                return SignedBytes.saturatedCast(Math.min(stack.stackSize / 32, 15) + 1);
-            }
-
-            @Override
-            public byte getMiniItemCountForItemStack(ItemStack stack) {
-                return SignedBytes.saturatedCast(Math.min(stack.stackSize / 32, 7) + 1);
-            }
-
-            @Override
-            public boolean shouldBob() {
-                return false;
-            }
-
-            @Override
-            public boolean shouldSpreadItems() {
-                return false;
-            }
-        };
         itemRenderer.setRenderManager(RenderManager.instance);
     }
 
@@ -98,20 +93,20 @@ public class TileEntityBarrelRenderer extends TileEntitySpecialRenderer {
                     break;
                 }
                 if (item == null) {
+                    ++shift;
+                } else {
+                    shiftX = shifts[shift][0];
+                    shiftY = shifts[shift][1];
+                    shiftZ = shifts[shift][2];
                     shift++;
-                    continue;
+                    glPushMatrix();
+                    glTranslatef(shiftX, shiftY, shiftZ);
+                    glRotatef(timeD, 0.0F, 1.0F, 0.0F);
+                    glScalef(blockScale, blockScale, blockScale);
+                    customitem.setEntityItemStack(item);
+                    itemRenderer.doRenderItem(customitem, 0, 0, 0, 0, 0);
+                    glPopMatrix();
                 }
-                shiftX = shifts[shift][0];
-                shiftY = shifts[shift][1];
-                shiftZ = shifts[shift][2];
-                shift++;
-                glPushMatrix();
-                glTranslatef(shiftX, shiftY, shiftZ);
-                glRotatef(timeD, 0.0F, 1.0F, 0.0F);
-                glScalef(blockScale, blockScale, blockScale);
-                customitem.func_92058_a(item);
-                itemRenderer.doRenderItem(customitem, 0, 0, 0, 0, 0);
-                glPopMatrix();
             }
             glEnable(2896 /* GL_LIGHTING */);
             glPopMatrix();

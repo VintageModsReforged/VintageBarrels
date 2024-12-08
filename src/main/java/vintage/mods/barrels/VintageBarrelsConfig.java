@@ -3,7 +3,6 @@ package vintage.mods.barrels;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 import mods.vintage.core.helpers.ConfigHelper;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
 
 import java.io.File;
 
@@ -27,21 +26,5 @@ public class VintageBarrelsConfig {
         if (MAIN_CONFIG != null) {
             MAIN_CONFIG.save();
         }
-    }
-
-    private static String getString(String cat, String tag, String defaultValue, String comment) {
-        comment = comment.replace("{t}", tag) + "\n";
-        Property prop = MAIN_CONFIG.get(cat, tag, defaultValue);
-        prop.comment = comment + "Default: " + defaultValue;
-        return prop.value;
-    }
-
-    private static int getId(String cat, String tag, int defaultValue, String comment) {
-        comment = comment.replace("{t}", tag) + "\n";
-        Property prop = MAIN_CONFIG.get(cat, tag, defaultValue);
-        prop.comment = comment + "Default: " + defaultValue;
-        int value = prop.getInt(defaultValue);
-        prop.value = Integer.toString(value);
-        return value;
     }
 }

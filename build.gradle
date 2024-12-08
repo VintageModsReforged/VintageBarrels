@@ -5,25 +5,30 @@ buildscript {
 		maven { url "https://repo.sleeping.town" } //Commented out to use the version of voldeloom in the settings.gradle includeBuild (hopefully??)
 	}
 	dependencies {
-		classpath "agency.highlysuspect:voldeloom:2.2-SNAPSHOT"
+		classpath "agency.highlysuspect:voldeloom:2.4-SNAPSHOT"
 	}
 }
 
 apply plugin: "agency.highlysuspect.voldeloom"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(11) //Last version able to set a --release as low as 6
-compileJava.options.release.set(6) //Forge doesn't understand classes compiled to versions of the class-file format newer than Java 6's
+java {
+	toolchain {
+		//Last version able to set a --release as low as 6.
+		languageVersion = JavaLanguageVersion.of(11)
+	}
+}
 
-String minecraftVersion = "1.4.7"
-String forgeVersion = "1.4.7-6.6.2.534"
+compileJava {
+	//Forge doesn't understand classes compiled to versions of the class-file format newer than Java 6's.
+	options.release.set(6)
+}
+
+String minecraftVersion = project.minecraft
+String forgeVersion = project.minecraft_forge
 archivesBaseName = project.modid
 version = project.mod_version
 
 volde {
-	forgeCapabilities {
-		srgsAsFallback = true
-	}
-	
 	runs {
 		client {
 			programArg "quaternary"
@@ -34,11 +39,8 @@ volde {
 dependencies {
 	minecraft "com.mojang:minecraft:${minecraftVersion}"
 	forge "net.minecraftforge:forge:${forgeVersion}:universal@zip"
+	mappings "net.minecraftforge:forge:${forgeVersion}:src@zip"
 	
-	mappings volde.layered {
-		baseZip "net.minecraftforge:forge:${forgeVersion}:src@zip"
-		unmapClass(["bar", "bas"])
-	}
-
-	modImplementation files("libs/VintageCore-1.4.7-1.0.3.1-dev.jar")
+	modImplementation files("libs/VintageCore-1.5.2-1.0.3.1-dev.jar")
+	modImplementation files("libs/ironchests.zip")
 }

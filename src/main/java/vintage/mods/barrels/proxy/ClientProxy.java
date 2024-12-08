@@ -15,8 +15,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderInformation() {
-        MinecraftForgeClient.preloadTexture("/mods/vintagebarrels/textures/block_textures.png");
-        MinecraftForgeClient.preloadTexture("/mods/vintagebarrels/textures/item_textures.png");
+
     }
 
     @Override

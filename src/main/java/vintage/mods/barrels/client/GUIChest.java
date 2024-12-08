@@ -9,16 +9,18 @@ import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.blocks.container.ContainerBarrelBase;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 
+import java.util.Locale;
+
 public class GUIChest extends GuiContainer {
     public enum GUI {
-        IRON(184, 202, "iron", BarrelType.IRON, FormattedTranslator.GREEN),
-        GOLD(184, 256, "gold", BarrelType.GOLD, FormattedTranslator.YELLOW),
-        DIAMOND(238, 256, "diamond", BarrelType.DIAMOND, FormattedTranslator.DARK_AQUA),
-        COPPER(184, 184, "copper", BarrelType.COPPER, FormattedTranslator.GOLD),
-        SILVER(184, 238, "silver", BarrelType.SILVER, FormattedTranslator.AQUA),
-        CRYSTAL(238, 256, "diamond", BarrelType.CRYSTAL, FormattedTranslator.AQUA),
-        OBSIDIAN(238, 256, "diamond", BarrelType.OBSIDIAN, FormattedTranslator.BLUE),
-        WOOD(184, 148, "wood", BarrelType.WOOD, FormattedTranslator.DARK_GRAY);
+        IRON(184, 202, "iron", BarrelType.IRON),
+        GOLD(184, 256, "gold", BarrelType.GOLD),
+        DIAMOND(238, 256, "diamond", BarrelType.DIAMOND),
+        COPPER(184, 184, "copper", BarrelType.COPPER),
+        SILVER(184, 238, "silver", BarrelType.SILVER),
+        CRYSTAL(238, 256, "diamond", BarrelType.CRYSTAL),
+        OBSIDIAN(238, 256, "diamond", BarrelType.OBSIDIAN),
+        WOOD(184, 148, "wood", BarrelType.WOOD);
 
         private int xSize;
         private int ySize;
@@ -26,12 +28,12 @@ public class GUIChest extends GuiContainer {
         private String locale;
         private BarrelType mainType;
 
-        GUI(int xSize, int ySize, String guiTexture, BarrelType mainType, FormattedTranslator formatter) {
+        GUI(int xSize, int ySize, String guiTexture, BarrelType mainType) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiTexture = "/mods/vintagebarrels/textures/gui/" + guiTexture + ".png";
             this.mainType = mainType;
-            this.locale = formatter.format("barrel." + this.name().toLowerCase() + ".name");
+            this.locale = mainType.formatter.format("barrel." + this.name().toLowerCase(Locale.ROOT) + ".name");
         }
 
         private Container makeContainer(IInventory player, IInventory chest) {
@@ -60,9 +62,8 @@ public class GUIChest extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        int texture = this.mc.renderEngine.getTexture(type.guiTexture);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(texture);
+        mc.renderEngine.bindTexture(type.guiTexture);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);

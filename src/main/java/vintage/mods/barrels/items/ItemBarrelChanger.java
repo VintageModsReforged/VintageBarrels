@@ -1,14 +1,14 @@
 package vintage.mods.barrels.items;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import vintage.mods.barrels.BarrelChangerType;
-import vintage.mods.barrels.BarrelType;
-import vintage.mods.barrels.BlocksItems;
-import vintage.mods.barrels.VintageBarrels;
+import vintage.mods.barrels.*;
 import vintage.mods.barrels.blocks.BlockNewBarrel;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 import vintage.mods.barrels.tiles.TileEntityWoodBarrel;
@@ -20,10 +20,14 @@ public class ItemBarrelChanger extends Item {
     public ItemBarrelChanger(int id, BarrelChangerType type) {
         super(id);
         this.setMaxStackSize(1);
+        this.setUnlocalizedName(type.itemName);
         this.TYPE = type;
         this.setCreativeTab(VintageBarrels.TAB);
-        this.setIconIndex(type.ordinal());
-        this.setItemName(type.itemName);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IconRegister register) {
+        this.itemIcon = register.registerIcon(Refs.ID + ":" + this.TYPE.itemName);
     }
 
     public int getTargetChestOrdinal() {
@@ -35,9 +39,9 @@ public class ItemBarrelChanger extends Item {
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int X, int Y, int Z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) return false;
-        TileEntity te = world.getBlockTileEntity(X, Y, Z);
+        TileEntity te = world.getBlockTileEntity(x, y, z);
         TileEntityBarrel newBarrel;
         if (te instanceof TileEntityBarrel && !(te instanceof TileEntityWoodBarrel)) {
             TileEntityBarrel entityBarrel = (TileEntityBarrel) te;
@@ -64,24 +68,15 @@ public class ItemBarrelChanger extends Item {
             for (int i = 0; i < Math.min(newSize, chestContents.length); i++) {
                 chestContents[i] = null;
             }
-            // Clear the old block out
-            world.setBlockAndMetadataWithNotify(X, Y, Z, 0, 0);
-            // Force the Chest TE to reset it's knowledge of neighbouring blocks
+            world.setBlock(x, y, z, 0, 0, 3);
             tec.updateContainingBlockInfo();
-            // And put in our block instead
-            world.setBlockAndMetadataWithNotify(X, Y, Z, block.blockID, newBarrel.getType().ordinal());
-            world.scheduleBlockUpdate(X, Y, Z, block.blockID, newBarrel.getType().ordinal());
+            world.setBlock(x, y, z, block.blockID, newBarrel.getType().ordinal(), 3);
         } else {
             return false;
         }
-        world.setBlockTileEntity(X, Y, Z, newBarrel);
-        world.setBlockMetadataWithNotify(X, Y, Z, newBarrel.getType().ordinal());
+        world.setBlockTileEntity(x, y, z, newBarrel);
+        world.setBlockMetadataWithNotify(x, y, z, newBarrel.getType().ordinal(), 3);
         stack.stackSize = 0;
         return true;
-    }
-
-    @Override
-    public String getTextureFile() {
-        return "/mods/vintagebarrels/textures/item_textures.png";
     }
 }

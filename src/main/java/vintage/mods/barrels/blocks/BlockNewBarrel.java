@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -12,6 +13,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vintage.mods.barrels.BarrelType;
@@ -27,10 +29,27 @@ public class BlockNewBarrel extends BlockContainer {
 
     public BlockNewBarrel(int id) {
         super(id, Material.iron);
-        this.setBlockName("barrel");
+        this.setUnlocalizedName("barrel");
         this.setHardness(3.0F);
         this.setBlockBounds(0, 0, 0, 1, 1, 1);
         this.setCreativeTab(VintageBarrels.TAB);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Icon getIcon(int par1, int meta) {
+        if (meta < BarrelType.values().length) {
+            BarrelType type = BarrelType.values()[meta];
+            return type.icon;
+        } else return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IconRegister registry) {
+        for (BarrelType type : BarrelType.values()) {
+            type.registerIcons(registry);
+        }
     }
 
     @Override
@@ -47,16 +66,6 @@ public class BlockNewBarrel extends BlockContainer {
     @Override
     public boolean isOpaqueCube() {
         return false;
-    }
-
-    @Override
-    public int getBlockTextureFromSideAndMetadata(int side, int meta) {
-        return meta;
-    }
-
-    @Override
-    public String getTextureFile() {
-        return "/mods/vintagebarrels/textures/block_textures.png";
     }
 
     @Override
