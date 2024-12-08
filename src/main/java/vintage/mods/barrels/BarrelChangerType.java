@@ -1,5 +1,6 @@
 package vintage.mods.barrels;
 
+import invtweaks.api.ContainerGUI;
 import net.minecraft.item.ItemStack;
 import vintage.mods.barrels.items.ItemBarrelChanger;
 

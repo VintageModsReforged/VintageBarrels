@@ -1,6 +1,6 @@
 package vintage.mods.barrels.client;
 
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import invtweaks.api.ContainerGUI;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -11,8 +11,9 @@ import vintage.mods.barrels.tiles.TileEntityBarrel;
 
 import java.util.Locale;
 
-public class GUIChest extends GuiContainer {
-    public enum GUI {
+@ContainerGUI
+public class GuiBarrel extends GuiContainer {
+    public enum GuiType {
         IRON(184, 202, "iron", BarrelType.IRON),
         GOLD(184, 256, "gold", BarrelType.GOLD),
         DIAMOND(238, 256, "diamond", BarrelType.DIAMOND),
@@ -28,7 +29,7 @@ public class GUIChest extends GuiContainer {
         private String locale;
         private BarrelType mainType;
 
-        GUI(int xSize, int ySize, String guiTexture, BarrelType mainType) {
+        GuiType(int xSize, int ySize, String guiTexture, BarrelType mainType) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiTexture = "/mods/vintagebarrels/textures/gui/" + guiTexture + ".png";
@@ -40,14 +41,14 @@ public class GUIChest extends GuiContainer {
             return new ContainerBarrelBase(player, chest, mainType, xSize, ySize);
         }
 
-        public static GUIChest buildGUI(BarrelType type, IInventory playerInventory, TileEntityBarrel barrel) {
-            return new GUIChest(values()[type.ordinal()], playerInventory, barrel);
+        public static GuiBarrel buildGUI(BarrelType type, IInventory playerInventory, TileEntityBarrel barrel) {
+            return new GuiBarrel(values()[type.ordinal()], playerInventory, barrel);
         }
     }
 
-    private final GUI type;
+    private final GuiType type;
 
-    private GUIChest(GUI type, IInventory player, IInventory chest) {
+    private GuiBarrel(GuiType type, IInventory player, IInventory chest) {
         super(type.makeContainer(player, chest));
         this.type = type;
         this.xSize = type.xSize;
