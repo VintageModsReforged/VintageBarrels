@@ -6,17 +6,21 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import mods.vintage.core.platform.lang.ILangProvider;
+import mods.vintage.core.platform.lang.LangManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import vintage.mods.barrels.lang.LangHelper;
 import vintage.mods.barrels.network.NetworkHandler;
 import vintage.mods.barrels.proxy.CommonProxy;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Mod(modid = Refs.ID, name = Refs.NAME, version = Refs.VERSION, dependencies = Refs.DEPS, acceptedMinecraftVersions = Refs.MC_VERSION)
 @NetworkMod(channels = { Refs.ID }, clientSideRequired = true, packetHandler = NetworkHandler.class)
-public class VintageBarrels {
+public class VintageBarrels implements ILangProvider {
 
     public static final CreativeTabs TAB = new CreativeTabs(Refs.ID) {{
             LanguageRegistry.instance().addStringLocalization("itemGroup." + Refs.ID, Refs.NAME);
@@ -42,12 +46,22 @@ public class VintageBarrels {
         OreDictionary.registerOre("ingotGold", Item.ingotGold);
         OreDictionary.registerOre("gemDiamond", Item.diamond);
         VintageBarrelsConfig.initMainConfig();
-        LangHelper.init();
         BlocksItems.initBlocks();
+        LangManager.THIS.registerLangProvider(this);
     }
 
     @Mod.PostInit
     public void postInit(FMLPostInitializationEvent e) {
         VintageBarrelsRecipe.initRecipes();
+    }
+
+    @Override
+    public String getModid() {
+        return Refs.ID;
+    }
+
+    @Override
+    public List<String> getLocalizationList() {
+        return Arrays.asList(VintageBarrelsConfig.LANGUAGES);
     }
 }

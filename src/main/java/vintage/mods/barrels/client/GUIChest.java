@@ -1,24 +1,24 @@
 package vintage.mods.barrels.client;
 
+import mods.vintage.core.platform.lang.FormattedTranslator;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import org.lwjgl.opengl.GL11;
 import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.blocks.container.ContainerBarrelBase;
-import vintage.mods.barrels.lang.TextFormatter;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 
 public class GUIChest extends GuiContainer {
     public enum GUI {
-        IRON(184, 202, "iron", BarrelType.IRON, TextFormatter.WHITE),
-        GOLD(184, 256, "gold", BarrelType.GOLD, TextFormatter.YELLOW),
-        DIAMOND(238, 256, "diamond", BarrelType.DIAMOND, TextFormatter.DARK_AQUA),
-        COPPER(184, 184, "copper", BarrelType.COPPER, TextFormatter.GOLD),
-        SILVER(184, 238, "silver", BarrelType.SILVER, TextFormatter.AQUA),
-        CRYSTAL(238, 256, "diamond", BarrelType.CRYSTAL, TextFormatter.AQUA),
-        OBSIDIAN(238, 256, "diamond", BarrelType.OBSIDIAN, TextFormatter.BLUE),
-        WOOD(184, 148, "wood", BarrelType.WOOD, TextFormatter.DARK_GRAY);
+        IRON(184, 202, "iron", BarrelType.IRON, FormattedTranslator.GREEN),
+        GOLD(184, 256, "gold", BarrelType.GOLD, FormattedTranslator.YELLOW),
+        DIAMOND(238, 256, "diamond", BarrelType.DIAMOND, FormattedTranslator.DARK_AQUA),
+        COPPER(184, 184, "copper", BarrelType.COPPER, FormattedTranslator.GOLD),
+        SILVER(184, 238, "silver", BarrelType.SILVER, FormattedTranslator.AQUA),
+        CRYSTAL(238, 256, "diamond", BarrelType.CRYSTAL, FormattedTranslator.AQUA),
+        OBSIDIAN(238, 256, "diamond", BarrelType.OBSIDIAN, FormattedTranslator.BLUE),
+        WOOD(184, 148, "wood", BarrelType.WOOD, FormattedTranslator.DARK_GRAY);
 
         private int xSize;
         private int ySize;
@@ -26,7 +26,7 @@ public class GUIChest extends GuiContainer {
         private String locale;
         private BarrelType mainType;
 
-        GUI(int xSize, int ySize, String guiTexture, BarrelType mainType, TextFormatter formatter) {
+        GUI(int xSize, int ySize, String guiTexture, BarrelType mainType, FormattedTranslator formatter) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiTexture = "/mods/vintagebarrels/textures/gui/" + guiTexture + ".png";
