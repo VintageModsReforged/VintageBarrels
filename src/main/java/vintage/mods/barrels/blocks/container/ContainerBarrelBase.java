@@ -56,7 +56,7 @@ public class ContainerBarrelBase extends Container {
     protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, BarrelType type, int xSize, int ySize) {
         for (int chestRow = 0; chestRow < type.getRowCount(); chestRow++) {
             for (int chestCol = 0; chestCol < type.getRowLength(); chestCol++) {
-                addSlotToContainer(new Slot(chestInventory, chestCol + chestRow * type.getRowLength(), 12 + chestCol * 18, 8 + chestRow * 18));
+                addSlotToContainer(new Slot(chestInventory, chestCol + chestRow * type.getRowLength(), 8 + chestCol * 18, 18 + chestRow * 18));
             }
         }
 

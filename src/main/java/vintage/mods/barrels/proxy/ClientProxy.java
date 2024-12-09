@@ -33,7 +33,7 @@ public class ClientProxy extends CommonProxy {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityBarrel) {
-            return GUIChest.GUI.buildGUI(BarrelType.values()[ID], player.inventory, (TileEntityBarrel) tileEntity);
+            return GUIChest.GuiType.buildGUI(BarrelType.values()[ID], player.inventory, (TileEntityBarrel) tileEntity);
         } else {
             return null;
         }

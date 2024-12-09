@@ -1,5 +1,6 @@
 package vintage.mods.barrels.client;
 
+import mods.vintage.core.platform.lang.Translator;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -8,16 +9,17 @@ import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.blocks.container.ContainerBarrelBase;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 
+
 public class GUIChest extends GuiContainer {
-    public enum GUI {
-        IRON(184, 202, "iron", BarrelType.IRON),
-        GOLD(184, 256, "gold", BarrelType.GOLD),
-        DIAMOND(238, 256, "diamond", BarrelType.DIAMOND),
-        COPPER(184, 184, "copper", BarrelType.COPPER),
-        SILVER(184, 238, "silver", BarrelType.SILVER),
-        CRYSTAL(238, 256, "diamond", BarrelType.CRYSTAL),
-        OBSIDIAN(238, 256, "diamond", BarrelType.OBSIDIAN),
-        WOOD(184, 148, "wood", BarrelType.WOOD);
+    public enum GuiType {
+        IRON(176, 222, "iron", BarrelType.IRON),
+        GOLD(230, 240, "gold", BarrelType.GOLD),
+        DIAMOND(248, 256, "diamond", BarrelType.DIAMOND),
+        COPPER(176, 204, "copper", BarrelType.COPPER),
+        SILVER(230, 222, "silver", BarrelType.SILVER),
+        CRYSTAL(248, 256, "diamond", BarrelType.CRYSTAL),
+        OBSIDIAN(248, 256, "diamond", BarrelType.OBSIDIAN),
+        WOOD(176, 168, "wood", BarrelType.WOOD);
 
         private int xSize;
         private int ySize;
@@ -25,12 +27,12 @@ public class GUIChest extends GuiContainer {
         private String locale;
         private BarrelType mainType;
 
-        GUI(int xSize, int ySize, String guiTexture, BarrelType mainType) {
+        GuiType(int xSize, int ySize, String guiTexture, BarrelType mainType) {
             this.xSize = xSize;
             this.ySize = ySize;
             this.guiTexture = "/mods/vintagebarrels/textures/gui/" + guiTexture + ".png";
             this.mainType = mainType;
-            this.locale = mainType.formatter.format("barrel." + this.name().toLowerCase() + ".name");
+            this.locale = Translator.format("barrel." + this.name().toLowerCase() + ".name");
         }
 
         private Container makeContainer(IInventory player, IInventory chest) {
@@ -42,9 +44,9 @@ public class GUIChest extends GuiContainer {
         }
     }
 
-    private final GUI type;
+    private final GuiType type;
 
-    private GUIChest(GUI type, IInventory player, IInventory chest) {
+    private GUIChest(GuiType type, IInventory player, IInventory chest) {
         super(type.makeContainer(player, chest));
         this.type = type;
         this.xSize = type.xSize;
@@ -54,7 +56,13 @@ public class GUIChest extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRenderer.drawString(type.locale, this.xSize / 2 - this.fontRenderer.getStringWidth(type.locale) / 2, -8, 0);
+        this.fontRenderer.drawString(type.locale, 8, 6, 4210752);
+        int xPos = 8;
+        switch (type) {
+            case SILVER: case GOLD: xPos = 35; break;
+            case DIAMOND: case CRYSTAL: case OBSIDIAN: xPos = 44; break;
+        }
+        this.fontRenderer.drawString(Translator.format("container.inventory"), xPos, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
@@ -65,5 +73,9 @@ public class GUIChest extends GuiContainer {
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+    }
+
+    public int getRowLength() {
+        return this.type.mainType.getRowLength();
     }
 }
