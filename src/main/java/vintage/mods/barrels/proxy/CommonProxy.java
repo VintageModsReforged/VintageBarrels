@@ -10,13 +10,7 @@ import vintage.mods.barrels.tiles.TileEntityBarrel;
 
 public class CommonProxy implements IGuiHandler {
 
-    public void registerRenderInformation() {
-
-    }
-
-    public void registerTileEntitySpecialRenderer(BarrelType typ) {
-
-    }
+    public void registerTileEntitySpecialRenderer(BarrelType typ) {}
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

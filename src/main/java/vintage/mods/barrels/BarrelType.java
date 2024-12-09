@@ -11,12 +11,12 @@ import java.util.Locale;
 
 public enum BarrelType {
     IRON(54, 9, TileEntityIronBarrel.class, FormattedTranslator.WHITE),
-    GOLD(81, 9, TileEntityGoldBarrel.class, FormattedTranslator.YELLOW),
-    DIAMOND(108, 12, TileEntityDiamondBarrel.class, FormattedTranslator.DARK_AQUA),
+    GOLD(84, 12, TileEntityGoldBarrel.class, FormattedTranslator.YELLOW),
+    DIAMOND(104, 13, TileEntityDiamondBarrel.class, FormattedTranslator.DARK_AQUA),
     COPPER(45, 9, TileEntityCopperBarrel.class, FormattedTranslator.GOLD),
-    SILVER(72, 9, TileEntitySilverBarrel.class, FormattedTranslator.AQUA),
-    CRYSTAL(108, 12, TileEntityCrystalBarrel.class, FormattedTranslator.AQUA),
-    OBSIDIAN(108, 12, TileEntityObsidianBarrel.class, FormattedTranslator.BLUE),
+    SILVER(72, 12, TileEntitySilverBarrel.class, FormattedTranslator.AQUA),
+    CRYSTAL(104, 13, TileEntityCrystalBarrel.class, FormattedTranslator.AQUA),
+    OBSIDIAN(104, 13, TileEntityObsidianBarrel.class, FormattedTranslator.BLUE),
     WOOD(27, 9, TileEntityWoodBarrel.class, FormattedTranslator.GREEN);
 
     public final int size;

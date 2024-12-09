@@ -13,11 +13,6 @@ import vintage.mods.barrels.tiles.TileEntityBarrel;
 public class ClientProxy extends CommonProxy {
 
     @Override
-    public void registerRenderInformation() {
-
-    }
-
-    @Override
     public void registerTileEntitySpecialRenderer(BarrelType typ) {
         ClientRegistry.bindTileEntitySpecialRenderer(typ.clazz, new TileEntityBarrelRenderer());
     }

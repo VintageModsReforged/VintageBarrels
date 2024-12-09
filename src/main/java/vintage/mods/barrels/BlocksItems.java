@@ -19,6 +19,5 @@ public class BlocksItems {
         }
 
         NetworkRegistry.instance().registerGuiHandler(VintageBarrels.instance, VintageBarrels.PROXY);
-        VintageBarrels.PROXY.registerRenderInformation();
     }
 }
