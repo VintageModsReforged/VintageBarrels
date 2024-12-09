@@ -16,6 +16,11 @@ public class VintageBarrelsRecipe {
     public static ItemStack OBSIDIAN = new ItemStack(BlocksItems.BARREL, 1, 6);
     public static ItemStack WOOD = new ItemStack(BlocksItems.BARREL, 1, 7);
 
+    public static ItemStack OAK = new ItemStack(BlocksItems.LABEL, 2, 0);
+    public static ItemStack SPRUCE = new ItemStack(BlocksItems.LABEL, 2, 1);
+    public static ItemStack BIRCH = new ItemStack(BlocksItems.LABEL, 2, 2);
+    public static ItemStack JUNGLE = new ItemStack(BlocksItems.LABEL, 2, 3);
+
     public static void initRecipes() {
         // wood
         oredictRecipe(WOOD,
@@ -163,6 +168,24 @@ public class VintageBarrelsRecipe {
                 "###", "#@#", "###",
                 '#', Block.obsidian,
                 '@', Block.torchRedstoneActive);
+
+        ItemStack oakPlank = new ItemStack(Block.planks, 1, 0);
+        ItemStack sprucePlank = new ItemStack(Block.planks, 1, 1);
+        ItemStack birchPlank = new ItemStack(Block.planks, 1, 2);
+        ItemStack junglePlank = new ItemStack(Block.planks, 1, 3);
+
+        oredictRecipe(OAK,
+                "###", "   ", "###",
+                '#', oakPlank);
+        oredictRecipe(SPRUCE,
+                "###", "   ", "###",
+                '#', sprucePlank);
+        oredictRecipe(BIRCH,
+                "###", "   ", "###",
+                '#', birchPlank);
+        oredictRecipe(JUNGLE,
+                "###", "   ", "###",
+                '#', junglePlank);
     }
 
     public static void oredictRecipe(ItemStack stack, Object... args) {

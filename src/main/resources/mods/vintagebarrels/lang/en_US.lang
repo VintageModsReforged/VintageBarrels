@@ -16,3 +16,8 @@ item.diamondCrystal.name=Diamond To Crystal Barrel Upgrade
 item.woodIron.name=Wooden To Iron Barrel Upgrade
 item.woodCopper.name=Wooden To Copper Barrel Upgrade
 item.diamondObsidian.name=Diamond To Obsidian Barrel Upgrade
+
+label.oak.name=Oak Wood Label
+label.spruce.name=Spruce Wood Label
+label.birch.name=Birch Wood Label
+label.jungle.name=Jungle Wood Label
