@@ -47,6 +47,7 @@ public class VintageBarrels implements ILangProvider {
         OreDictionary.registerOre("gemDiamond", Item.diamond);
         VintageBarrelsConfig.initMainConfig();
         BlocksItems.initBlocks();
+        PROXY.init();
         LangManager.THIS.registerLangProvider(this);
     }
 
