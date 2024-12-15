@@ -1,6 +1,5 @@
 package vintage.mods.barrels.proxy;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +8,6 @@ import net.minecraft.world.World;
 import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.blocks.container.ContainerBarrelBase;
 import vintage.mods.barrels.blocks.label.ContainerLabel;
-import vintage.mods.barrels.client.BarrelRenderingHandler;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 import vintage.mods.barrels.tiles.TileEntityLabel;
 
@@ -17,7 +15,6 @@ public class CommonProxy implements IGuiHandler {
 
     public void init() {
         GameRegistry.registerTileEntity(TileEntityLabel.class, "LabelTileEntity");
-        RenderingRegistry.registerBlockHandler(new BarrelRenderingHandler());
     }
 
     public void registerTileEntitySpecialRenderer(BarrelType typ) {}

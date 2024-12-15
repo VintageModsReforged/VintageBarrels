@@ -16,7 +16,6 @@ import vintage.mods.barrels.tiles.TileEntityBarrel;
 public class BarrelRenderingHandler implements ISimpleBlockRenderingHandler {
 
     public static final int renderId = RenderingRegistry.getNextAvailableRenderId();
-    public final TileEntityBarrel barrel = new TileEntityBarrel();
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks) {

@@ -217,10 +217,12 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
                 sortTopStacks();
             }
         }
-        boolean newActive;
-        newActive = numUsingPlayers > 0;
-        if (newActive != this.isActive()) {
-            this.setActive(newActive);
+        if (!worldObj.isRemote) {
+            boolean newActive;
+            newActive = numUsingPlayers > 0;
+            if (newActive != this.isActive()) {
+                this.setActive(newActive);
+            }
         }
     }
 

@@ -295,4 +295,10 @@ public class BlockBarrel extends BlockContainer {
             }
         }
     }
+
+    @Override
+    public void onBlockAdded(World world, int i, int j, int k) {
+        super.onBlockAdded(world, i, j, k);
+        world.markBlockForUpdate(i, j, k);
+    }
 }
