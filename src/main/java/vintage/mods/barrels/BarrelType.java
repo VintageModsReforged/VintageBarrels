@@ -25,12 +25,17 @@ public enum BarrelType {
     @SideOnly(Side.CLIENT)
     public Icon icon;
     public final FormattedTranslator formatter;
+    public static final BarrelType[] VALUES = values();
 
     BarrelType(int size, int rowLength, Class<? extends TileEntityBarrel> clazz, FormattedTranslator formatter) {
         this.size = size;
         this.rowLength = rowLength;
         this.clazz = clazz;
         this.formatter = formatter;
+    }
+
+    public static BarrelType getFromId(int id) {
+        return VALUES[id % values().length];
     }
 
     public static TileEntityBarrel makeEntity(int metadata) {

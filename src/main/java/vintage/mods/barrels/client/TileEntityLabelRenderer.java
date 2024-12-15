@@ -23,7 +23,6 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
     private float kchange1;
     private float kchange2;
     private float kchange3;
-    private float optifineAdjust = 0.0F;
     private RenderItem itemRenderer;
     private RenderManager renderManager;
 
@@ -105,9 +104,6 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             }
         };
         this.itemRenderer.setRenderManager(RenderManager.instance);
-        if (VintageBarrelsConfig.OPTIFINE_INSTALLED) {
-            this.optifineAdjust = -0.07F;
-        }
 
         int texNum = tileEntity.getBlockMetadata();
         GL11.glPushMatrix();
@@ -155,7 +151,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             EntityItem slot1Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot1);
             slot1Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslated(i + (double)this.ichange1, j + (double)0.32F + (double)this.optifineAdjust, k + (double)this.kchange1);
+            GL11.glTranslated(i + (double)this.ichange1, j + 0.32, k + (double)this.kchange1);
             if (Refs.isBlock(slot1)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (fancyGraphics) {
@@ -177,7 +173,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             EntityItem slot2Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot2);
             slot2Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslated(i + (double)this.ichange3, j + (double)0.24F + (double)this.optifineAdjust, k + (double)this.kchange3);
+            GL11.glTranslated(i + (double)this.ichange3, j + (double)0.24F, k + (double)this.kchange3);
             if (Refs.isBlock(slot2)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (fancyGraphics) {
@@ -210,7 +206,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             EntityItem slot3Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot3);
             slot3Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslated(i + (double)this.ichange2, j + (double)0.32F + (double)this.optifineAdjust, k + (double)this.kchange2);
+            GL11.glTranslated(i + (double)this.ichange2, j + (double)0.32F, k + (double)this.kchange2);
             if (fancyGraphics && Refs.isBlock(slot3)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (fancyGraphics) {

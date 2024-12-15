@@ -1,0 +1,37 @@
+barrel.wood.name=Деревянная бочка
+barrel.iron.name=Железная бочка
+barrel.gold.name=Золотая бочка
+barrel.diamond.name=Алмазная бочка
+barrel.copper.name=Медная бочка
+barrel.silver.name=Серебряная бочка
+barrel.crystal.name=Кристальная бочка
+barrel.obsidian.name=Обсидиановая бочка
+
+item.ironGold.name=Апгрейд бочки: из железной в золотую
+item.goldDiamond.name=Апгрейд бочки: из золотой в алмазную
+item.copperSilver.name=Апгрейд бочки: из медной в серебряную
+item.silverGold.name=Апгрейд бочки: из серебряной в золотую
+item.copperIron.name=Апгрейд бочки: из медной в железную
+item.diamondCrystal.name=Апгрейд бочки: из алмазной в кристальную
+item.woodIron.name=Апгрейд бочки: из деревянной в железную
+item.woodCopper.name=Апгрейд бочки: из деревянной в медную
+item.diamondObsidian.name=Апгрейд бочки: из алмазной в обсидиановую
+
+item.transporter.name=Таскатель инвентаря (%s)
+
+label.oak.name=Дубовая табличка
+label.spruce.name=Еловая табличка
+label.birch.name=Берёзовая табличка
+label.jungle.name=Табличка из тропического дерева
+
+transporter.wood=Деревянный
+transporter.tin=Оловянный
+transporter.copper=Медный
+transporter.iron=Железный
+transporter.gold=Золотой
+transporter.silver=Серебряный
+transporter.obsidian=Обсидиановый
+transporter.diamond=Алмазный
+
+tooltip.transporter.content=Содержит %s предмета(ов).
+gui.label.title=Деревянная табличка

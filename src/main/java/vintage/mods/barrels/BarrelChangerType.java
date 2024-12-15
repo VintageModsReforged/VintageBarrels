@@ -1,9 +1,5 @@
 package vintage.mods.barrels;
 
-import invtweaks.api.ContainerGUI;
-import net.minecraft.item.ItemStack;
-import vintage.mods.barrels.items.ItemBarrelChanger;
-
 import static vintage.mods.barrels.BarrelType.*;
 
 public enum BarrelChangerType {
@@ -20,7 +16,7 @@ public enum BarrelChangerType {
     private final BarrelType source;
     private final BarrelType target;
     public final String itemName;
-    private ItemBarrelChanger item;
+    public static BarrelChangerType[] VALUES = values();
 
     BarrelChangerType(BarrelType source, BarrelType target, String itemName) {
         this.source = source;
@@ -36,18 +32,7 @@ public enum BarrelChangerType {
         return this.target.ordinal();
     }
 
-    public ItemBarrelChanger buildItem(int id) {
-        item = new ItemBarrelChanger(id, this);
-        return item;
-    }
-
-    public ItemStack getStack() {
-        return new ItemStack(this.item);
-    }
-
-    public static void buildItems(int defaultId) {
-        for (BarrelChangerType type : values()) {
-            type.buildItem(defaultId++);
-        }
+    public static BarrelChangerType getFromId(int id) {
+        return VALUES[id % values().length];
     }
 }

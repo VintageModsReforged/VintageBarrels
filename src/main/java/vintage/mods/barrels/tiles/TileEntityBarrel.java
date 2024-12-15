@@ -9,7 +9,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.BlocksItems;
-import vintage.mods.barrels.blocks.BlockNewBarrel;
+import vintage.mods.barrels.blocks.BlockBarrel;
 import vintage.mods.barrels.items.ItemBarrelChanger;
 import vintage.mods.barrels.network.NetworkHandler;
 
@@ -25,6 +25,8 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
     private ItemStack[] topStacks;
     private boolean inventoryTouched;
     private boolean hadStuff;
+    private short facing = 0;
+    private boolean active = false;
 
     public TileEntityBarrel() {
         this(BarrelType.WOOD);
@@ -170,6 +172,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
             }
         }
         sortTopStacks();
+        this.facing = nbttagcompound.getShort("facing");
     }
 
     @Override
@@ -185,6 +188,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
             }
         }
         nbttagcompound.setTag("Items", nbttaglist);
+        nbttagcompound.setShort("facing", this.facing);
     }
 
     @Override
@@ -213,6 +217,11 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
                 sortTopStacks();
             }
         }
+        boolean newActive;
+        newActive = numUsingPlayers > 0;
+        if (newActive != this.isActive()) {
+            this.setActive(newActive);
+        }
     }
 
     @Override
@@ -231,6 +240,9 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         if (worldObj == null) return;
         numUsingPlayers++;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
+        double xOffset = this.xCoord + 0.5F;
+        double zOffset = this.zCoord + 0.5F;
+        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
@@ -238,6 +250,9 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         if (worldObj == null) return;
         numUsingPlayers--;
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
+        double xOffset = this.xCoord + 0.5F;
+        double zOffset = this.zCoord + 0.5F;
+        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
@@ -245,17 +260,17 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         return true;
     }
 
-    public TileEntityBarrel applyUpgradeItem(ItemBarrelChanger itemBarrelChanger) {
+    public TileEntityBarrel applyUpgradeItem(ItemBarrelChanger itemBarrelChanger, ItemStack stack) {
         if (numUsingPlayers > 0) {
             return null;
         }
-        if (!itemBarrelChanger.getType().canUpgrade(this.getType())) {
+        if (!itemBarrelChanger.getType(stack).canUpgrade(this.getType())) {
             return null;
         }
-        TileEntityBarrel newEntity = BarrelType.makeEntity(itemBarrelChanger.getTargetChestOrdinal());
+        TileEntityBarrel newEntity = BarrelType.makeEntity(itemBarrelChanger.getTargetChestOrdinal(stack));
         int newSize = newEntity.barrelContents.length;
         System.arraycopy(barrelContents, 0, newEntity.barrelContents, 0, Math.min(newSize, barrelContents.length));
-        BlockNewBarrel block = BlocksItems.BARREL;
+        BlockBarrel block = BlocksItems.BARREL;
         block.dropContent(newSize, this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
         newEntity.sortTopStacks();
         return newEntity;
@@ -330,5 +345,25 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         } else {
             return null;
         }
+    }
+
+    public short getFacing() {
+        return this.facing;
+    }
+
+    public void setFacing(short facing) {
+        this.facing = facing;
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    public void setActive(boolean active) {
+        if (this.active != active) {
+            this.active = active;
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
+    }
+
+    public boolean isActive() {
+        return this.active;
     }
 }

@@ -1,6 +1,7 @@
 package vintage.mods.barrels;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Refs {
 
@@ -22,5 +23,14 @@ public class Refs {
     public static boolean isBlock(ItemStack stack) {
         String itemName = stack.toString();
         return !itemName.contains("item") && !itemName.contains("null");
+    }
+
+    public static NBTTagCompound getOrCreateTag(ItemStack stack) {
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null) {
+            tag = new NBTTagCompound("tag");
+            stack.setTagCompound(tag);
+        }
+        return tag;
     }
 }

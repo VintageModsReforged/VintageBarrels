@@ -6,12 +6,18 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.vintage.core.platform.lang.ILangProvider;
 import mods.vintage.core.platform.lang.LangManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.oredict.OreDictionary;
+import vintage.mods.barrels.client.BlockTextureStitched;
 import vintage.mods.barrels.network.NetworkHandler;
 import vintage.mods.barrels.proxy.CommonProxy;
 
@@ -49,6 +55,7 @@ public class VintageBarrels implements ILangProvider {
         BlocksItems.initBlocks();
         PROXY.init();
         LangManager.THIS.registerLangProvider(this);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Mod.PostInit
@@ -64,5 +71,11 @@ public class VintageBarrels implements ILangProvider {
     @Override
     public List<String> getLocalizationList() {
         return Arrays.asList(VintageBarrelsConfig.LANGUAGES);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @ForgeSubscribe
+    public void onTextureStitchPost(TextureStitchEvent.Post e) {
+        BlockTextureStitched.onPostStitch();
     }
 }
