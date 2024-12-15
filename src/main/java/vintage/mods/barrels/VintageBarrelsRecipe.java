@@ -2,6 +2,7 @@ package vintage.mods.barrels;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -113,58 +114,58 @@ public class VintageBarrelsRecipe {
                 'W', DIAMOND);
 
         // wood to iron
-        oredictRecipe(BarrelChangerType.WOOD_IRON.getStack(),
+        oredictRecipe(BlocksItems.WOOD_IRON,
                 "###", "#@#", "###",
                 '#', "ingotIron",
                 '@', Block.torchRedstoneActive);
 
         // wood to copper
-        oredictRecipe(BarrelChangerType.WOOD_COPPER.getStack(),
+        oredictRecipe(BlocksItems.WOOD_COPPER,
                 "###", "#@#", "###",
                 '#', "ingotCopper",
                 '@', Block.torchRedstoneActive);
 
         // iron to gold
-        oredictRecipe(BarrelChangerType.IRON_GOLD.getStack(),
+        oredictRecipe(BlocksItems.IRON_GOLD,
                 "###", "#@#", "###",
                 '#', "ingotGold",
                 '@', Block.torchRedstoneActive);
 
         // gold to diamond
-        oredictRecipe(BarrelChangerType.GOLD_DIAMOND.getStack(),
+        oredictRecipe(BlocksItems.GOLD_DIAMOND,
                 "###", "G@G", "###",
                 '#', Block.glass,
                 'G', "gemDiamond",
                 '@', Block.torchRedstoneActive);
 
         // copper to silver
-        oredictRecipe(BarrelChangerType.COPPER_SILVER.getStack(),
+        oredictRecipe(BlocksItems.COPPER_SILVER,
                 "###", "#@#", "###",
                 '#', "ingotSilver",
                 '@', Block.torchRedstoneActive);
 
         // copper to iron
-        oredictRecipe(BarrelChangerType.COPPER_IRON.getStack(),
+        oredictRecipe(BlocksItems.COPPER_IRON,
                 "#G#", "G@G", "#G#",
                 'G', Block.glass,
                 '#', "ingotIron",
                 '@', Block.torchRedstoneActive);
 
         // silver to gold
-        oredictRecipe(BarrelChangerType.SILVER_GOLD.getStack(),
+        oredictRecipe(BlocksItems.SILVER_GOLD,
                 "#G#", "G@G", "#G#",
                 'G', Block.glass,
                 '#', "ingotGold",
                 '@', Block.torchRedstoneActive);
 
         // diamond to crystal
-        oredictRecipe(BarrelChangerType.DIAMOND_CRYSTAL.getStack(),
+        oredictRecipe(BlocksItems.DIAMOND_CRYSTAL,
                 "###", "#@#", "###",
                 '#', Block.glass,
                 '@', Block.torchRedstoneActive);
 
         // diamond to obsidian
-        oredictRecipe(BarrelChangerType.DIAMOND_OBSIDIAN.getStack(),
+        oredictRecipe(BlocksItems.DIAMOND_OBSIDIAN,
                 "###", "#@#", "###",
                 '#', Block.obsidian,
                 '@', Block.torchRedstoneActive);
@@ -186,6 +187,45 @@ public class VintageBarrelsRecipe {
         oredictRecipe(JUNGLE,
                 "###", "   ", "###",
                 '#', junglePlank);
+
+        oredictRecipe(BarrelTransporters.WOOD.getStack(),
+                "S S", "SSS", " S ",
+                'S', Item.stick);
+
+        oredictRecipe(BarrelTransporters.COPPER.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', "ingotCopper");
+
+        oredictRecipe(BarrelTransporters.TIN.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', "ingotTin");
+
+        oredictRecipe(BarrelTransporters.IRON.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', "ingotIron");
+
+        oredictRecipe(BarrelTransporters.GOLD.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', "ingotGold");
+
+        oredictRecipe(BarrelTransporters.SILVER.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', "ingotSilver");
+
+        oredictRecipe(BarrelTransporters.OBSIDIAN.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', Block.obsidian);
+
+        oredictRecipe(BarrelTransporters.DIAMOND.getStack(),
+                "S S", "SSS", " # ",
+                'S', Item.stick,
+                '#', "gemDiamond");
     }
 
     public static void oredictRecipe(ItemStack stack, Object... args) {

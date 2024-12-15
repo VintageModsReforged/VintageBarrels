@@ -25,6 +25,8 @@ public class NetworkHandler implements IPacketHandler {
         int x = dat.readInt();
         int y = dat.readInt();
         int z = dat.readInt();
+        short facing = dat.readShort();
+        boolean isActive = dat.readBoolean();
         byte typ = dat.readByte();
         boolean hasStacks = dat.readByte() != 0;
         int[] items = new int[0];
@@ -39,6 +41,8 @@ public class NetworkHandler implements IPacketHandler {
         if (te instanceof TileEntityBarrel) {
             TileEntityBarrel entityBarrel = (TileEntityBarrel) te;
             entityBarrel.handlePacketData(typ, items);
+            entityBarrel.setFacing(facing);
+            entityBarrel.setActive(isActive);
         }
     }
 
@@ -48,6 +52,8 @@ public class NetworkHandler implements IPacketHandler {
         int x = tileEntityIronChest.xCoord;
         int y = tileEntityIronChest.yCoord;
         int z = tileEntityIronChest.zCoord;
+        short facing = tileEntityIronChest.getFacing();
+        boolean isActive = tileEntityIronChest.isActive();
         int typ = tileEntityIronChest.getType().ordinal();
         int[] items = tileEntityIronChest.buildIntDataList();
         boolean hasStacks = (items != null);
@@ -55,6 +61,8 @@ public class NetworkHandler implements IPacketHandler {
             dos.writeInt(x);
             dos.writeInt(y);
             dos.writeInt(z);
+            dos.writeShort(facing);
+            dos.writeBoolean(isActive);
             dos.writeByte(typ);
             dos.writeByte(hasStacks ? 1 : 0);
             if (hasStacks) {

@@ -1,5 +1,6 @@
 package vintage.mods.barrels.items;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,25 +14,44 @@ import vintage.mods.barrels.blocks.BlockNewBarrel;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 import vintage.mods.barrels.tiles.TileEntityWoodBarrel;
 
+import java.util.List;
+
 public class ItemBarrelChanger extends Item {
 
-    BarrelChangerType TYPE;
-
-    public ItemBarrelChanger(int id, BarrelChangerType type) {
+    public ItemBarrelChanger(int id) {
         super(id);
         this.setMaxStackSize(1);
-        this.TYPE = type;
+        this.setHasSubtypes(true);
         this.setCreativeTab(VintageBarrels.TAB);
-        this.setIconIndex(type.ordinal());
-        this.setItemName(type.itemName);
+        this.setItemName("barrel_upgrade");
     }
 
-    public int getTargetChestOrdinal() {
-        return TYPE.getTarget();
+    @Override
+    public void getSubItems(int id, CreativeTabs tabs, List list) {
+        for (int i = 0; i < BarrelChangerType.VALUES.length; i++) {
+            list.add(new ItemStack(this, 1, i));
+        }
     }
 
-    public BarrelChangerType getType() {
-        return this.TYPE;
+    @Override
+    public int getIconFromDamage(int damage) {
+        return damage;
+    }
+
+    @Override
+    public String getItemNameIS(ItemStack stack) {
+        int index = stack.getItemDamage();
+        return "item." + BarrelChangerType.getFromId(index).itemName;
+    }
+
+    public int getTargetChestOrdinal(ItemStack stack) {
+        int index = stack.getItemDamage();
+        return BarrelChangerType.getFromId(index).getTarget();
+    }
+
+    public BarrelChangerType getType(ItemStack stack) {
+        int index = stack.getItemDamage();
+        return BarrelChangerType.getFromId(index);
     }
 
     @Override
@@ -41,7 +61,7 @@ public class ItemBarrelChanger extends Item {
         TileEntityBarrel newBarrel;
         if (te instanceof TileEntityBarrel && !(te instanceof TileEntityWoodBarrel)) {
             TileEntityBarrel entityBarrel = (TileEntityBarrel) te;
-            newBarrel = entityBarrel.applyUpgradeItem(this);
+            newBarrel = entityBarrel.applyUpgradeItem(this, stack);
             if (newBarrel == null) {
                 return false;
             }
@@ -50,11 +70,11 @@ public class ItemBarrelChanger extends Item {
             if (tec.numUsingPlayers > 0) {
                 return false;
             }
-            if (!getType().canUpgrade(BarrelType.WOOD)) {
+            if (!getType(stack).canUpgrade(BarrelType.WOOD)) {
                 return false;
             }
             // Force old TE out of the world so that adjacent chests can update
-            newBarrel = BarrelType.makeEntity(getTargetChestOrdinal());
+            newBarrel = BarrelType.makeEntity(getTargetChestOrdinal(stack));
             int newSize = newBarrel.barrelContents.length;
             ItemStack[] chestContents = tec.barrelContents;
             System.arraycopy(chestContents, 0, newBarrel.barrelContents, 0, Math.min(newSize, chestContents.length));

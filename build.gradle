@@ -41,6 +41,4 @@ dependencies {
 	}
 
 	modImplementation files("libs/VintageCore-1.4.7-1.0.3.1-dev.jar")
-//	modImplementation files("libs/InvTweaks.zip")
-	modImplementation files("libs/bibliocraft.zip")
 }

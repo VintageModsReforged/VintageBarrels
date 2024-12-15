@@ -128,7 +128,7 @@ public class BlockLabel extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int par6, float par7, float par8, float par9) {
         if (!world.isRemote) {
-            TileEntityLabel tileLabel = (TileEntityLabel)world.getBlockTileEntity(i, j, k);
+            TileEntityLabel tileLabel = (TileEntityLabel) world.getBlockTileEntity(i, j, k);
             if (tileLabel == null) {
                 return false;
             }

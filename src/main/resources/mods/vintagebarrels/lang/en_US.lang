@@ -17,7 +17,21 @@ item.woodIron.name=Wooden To Iron Barrel Upgrade
 item.woodCopper.name=Wooden To Copper Barrel Upgrade
 item.diamondObsidian.name=Diamond To Obsidian Barrel Upgrade
 
+item.transporter.name=Inventory Transporter (%s)
+
 label.oak.name=Oak Wood Label
 label.spruce.name=Spruce Wood Label
 label.birch.name=Birch Wood Label
 label.jungle.name=Jungle Wood Label
+
+transporter.wood=Wooden
+transporter.tin=Tin
+transporter.copper=Copper
+transporter.iron=Iron
+transporter.gold=Golden
+transporter.silver=Silver
+transporter.obsidian=Obsidian
+transporter.diamond=Diamond
+
+tooltip.transporter.content=Contains %s items.
+gui.label.title=Wooden Label
