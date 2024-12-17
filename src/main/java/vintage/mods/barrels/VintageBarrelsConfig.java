@@ -18,6 +18,7 @@ public class VintageBarrelsConfig {
 
     public static int TEXT_COLOR;
     public static boolean TEXT_SHADOW;
+    public static boolean DYNAMIC_PLACEMENT;
 
     public static void initMainConfig() {
         MAIN_CONFIG = new Configuration(new File((File) FMLInjectionData.data()[6], "config/vintagebarrels.cfg"));
@@ -26,6 +27,7 @@ public class VintageBarrelsConfig {
         LANGUAGES = ConfigHelper.getStrings(MAIN_CONFIG, "languages", "localization_list", new String[] { "en_US", "ru_RU" }, "Supported localizations.");
         TEXT_COLOR = ConfigHelper.getId(MAIN_CONFIG, "general", "textColor", 16777215);
         TEXT_SHADOW = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
+        DYNAMIC_PLACEMENT = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "dynamicLabelPlacement", false, "When TRUE, Label block will use dynamic placement based on player hit.");
 
         BARREL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "barrel", BARREL_ID);
         WOOD_LABEL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "woodLabel", WOOD_LABEL_ID);
