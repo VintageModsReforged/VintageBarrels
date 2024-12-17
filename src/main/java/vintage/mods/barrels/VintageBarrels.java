@@ -14,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.oredict.OreDictionary;
@@ -77,5 +78,12 @@ public class VintageBarrels implements ILangProvider {
     @ForgeSubscribe
     public void onTextureStitchPost(TextureStitchEvent.Post e) {
         BlockTextureStitched.onPostStitch();
+    }
+
+    @ForgeSubscribe
+    public void soundLoad(SoundLoadEvent e) {
+        e.manager.soundPoolSounds.addSound("block/barrel/barrel_open.ogg", VintageBarrels.class.getResource("/mods/" + Refs.ID + "/sounds/barrel_open.ogg"));
+        e.manager.soundPoolSounds.addSound("block/barrel/barrel_open_alt.ogg", VintageBarrels.class.getResource("/mods/" + Refs.ID + "/sounds/barrel_open_alt.ogg"));
+        e.manager.soundPoolSounds.addSound("block/barrel/barrel_close.ogg", VintageBarrels.class.getResource("/mods/" + Refs.ID + "/sounds/barrel_close.ogg"));
     }
 }

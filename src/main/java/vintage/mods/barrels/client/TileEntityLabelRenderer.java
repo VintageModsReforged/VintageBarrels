@@ -109,16 +109,16 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         switch (this.labelAngle) {
             case 0:
-                GL11.glTranslated(i + (double)0.99F, j + (double)0.3F, k + (double)0.5F);
+                GL11.glTranslated(i + (double)0.99F, j + (double)0.2F, k + (double)0.5F);
                 break;
             case 1:
-                GL11.glTranslated(i + (double)0.5F, j + (double)0.3F, k + (double)0.99F);
+                GL11.glTranslated(i + (double)0.5F, j + (double)0.2F, k + (double)0.99F);
                 break;
             case 2:
-                GL11.glTranslated(i + (double)0.01F, j + (double)0.3F, k + (double)0.5F);
+                GL11.glTranslated(i + (double)0.01F, j + (double)0.2F, k + (double)0.5F);
                 break;
             case 3:
-                GL11.glTranslated(i + (double)0.5F, j + (double)0.3F, k + (double)0.01F);
+                GL11.glTranslated(i + (double)0.5F, j + (double)0.2F, k + (double)0.01F);
         }
 
         GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
@@ -151,7 +151,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             EntityItem slot1Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot1);
             slot1Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslated(i + (double)this.ichange1, j + 0.32, k + (double)this.kchange1);
+            GL11.glTranslated(i + (double)this.ichange1, j + 0.22, k + (double)this.kchange1);
             if (Refs.isBlock(slot1)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (fancyGraphics) {
@@ -159,10 +159,10 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             }
 
             if (Refs.isBlock(slot1)) {
-                GL11.glTranslated(0.0F, 0.05F, 0.0F);
+                GL11.glTranslated(0.0F, 0.04F, 0.0F);
                 GL11.glScalef(0.45F, 0.45F, 0.45F);
             } else {
-                GL11.glScalef(0.35F, 0.35F, 0.35F);
+                GL11.glScalef(0.35F, 0.25F, 0.35F);
             }
 
             this.itemRenderer.doRenderItem(slot1Entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
@@ -173,7 +173,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             EntityItem slot2Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot2);
             slot2Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslated(i + (double)this.ichange3, j + (double)0.24F, k + (double)this.kchange3);
+            GL11.glTranslated(i + (double)this.ichange3, j + (double)0.14F, k + (double)this.kchange3);
             if (Refs.isBlock(slot2)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (fancyGraphics) {
@@ -195,7 +195,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             }
 
             if (slot1 != null && Refs.isBlock(slot2) || slot3 != null && Refs.isBlock(slot2)) {
-                GL11.glTranslated(0.0F, 0.02F, 0.0F);
+                GL11.glTranslated(0.0F, 0.01F, 0.0F);
             }
 
             this.itemRenderer.doRenderItem(slot2Entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
@@ -206,7 +206,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             EntityItem slot3Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot3);
             slot3Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslated(i + (double)this.ichange2, j + (double)0.32F, k + (double)this.kchange2);
+            GL11.glTranslated(i + (double)this.ichange2, j + (double)0.22F, k + (double)this.kchange2);
             if (fancyGraphics && Refs.isBlock(slot3)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (fancyGraphics) {
@@ -214,7 +214,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             }
 
             if (Refs.isBlock(slot3)) {
-                GL11.glTranslated(0.0F, 0.05F, 0.0F);
+                GL11.glTranslated(0.0F, 0.04F, 0.0F);
                 GL11.glScalef(0.45F, 0.45F, 0.45F);
             } else {
                 GL11.glScalef(0.35F, 0.35F, 0.35F);

@@ -244,7 +244,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
         double xOffset = this.xCoord + 0.5F;
         double zOffset = this.zCoord + 0.5F;
-        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, worldObj.rand.nextInt(2) == 1 ? "block.barrel.barrel_open" : "block.barrel.barrel_open_alt", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
@@ -254,7 +254,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
         double xOffset = this.xCoord + 0.5F;
         double zOffset = this.zCoord + 0.5F;
-        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "block.barrel.barrel_close", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override

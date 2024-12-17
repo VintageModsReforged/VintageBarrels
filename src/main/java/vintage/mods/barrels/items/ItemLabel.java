@@ -19,7 +19,8 @@ public class ItemLabel extends ItemBlock {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack) {
-        return labelNames[itemstack.getItemDamage()];
+    public String getUnlocalizedName(ItemStack stack) {
+        int meta = stack.getItemDamage();
+        return labelNames[meta % 4];
     }
 }

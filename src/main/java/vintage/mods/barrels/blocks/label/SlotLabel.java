@@ -18,6 +18,6 @@ public class SlotLabel extends Slot {
     }
 
     public int getSlotStackLimit() {
-        return 64;
+        return 1;
     }
 }
