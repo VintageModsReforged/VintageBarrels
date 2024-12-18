@@ -5,6 +5,7 @@ import mods.vintage.core.helpers.ConfigHelper;
 import net.minecraftforge.common.Configuration;
 
 import java.io.File;
+import java.util.Random;
 
 public class VintageBarrelsConfig {
 
@@ -18,6 +19,7 @@ public class VintageBarrelsConfig {
 
     public static int TEXT_COLOR;
     public static boolean TEXT_SHADOW;
+    public static boolean USE_CUSTOM_SOUNDS;
 
     public static void initMainConfig() {
         MAIN_CONFIG = new Configuration(new File((File) FMLInjectionData.data()[6], "config/vintagebarrels.cfg"));
@@ -26,6 +28,7 @@ public class VintageBarrelsConfig {
         LANGUAGES = ConfigHelper.getStrings(MAIN_CONFIG, "languages", "localization_list", new String[] { "en_US", "ru_RU" }, "Supported localizations.");
         TEXT_COLOR = ConfigHelper.getId(MAIN_CONFIG, "general", "textColor", 16777215);
         TEXT_SHADOW = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
+        USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
 
         BARREL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "barrel", BARREL_ID);
         WOOD_LABEL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "woodLabel", WOOD_LABEL_ID);
@@ -36,5 +39,13 @@ public class VintageBarrelsConfig {
         if (MAIN_CONFIG != null) {
             MAIN_CONFIG.save();
         }
+    }
+
+    public static String getOpenSound(Random random) {
+        return USE_CUSTOM_SOUNDS ? "block.barrel.custom.barrel_open" : random.nextInt(2) == 1 ? "block.barrel.barrel_open" : "block.barrel.barrel_open_alt";
+    }
+
+    public static String getCloseSound() {
+        return USE_CUSTOM_SOUNDS ? "block.barrel.custom.barrel_close" : "block.barrel.barrel_close";
     }
 }
