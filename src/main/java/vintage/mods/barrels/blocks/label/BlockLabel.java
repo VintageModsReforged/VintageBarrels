@@ -86,16 +86,16 @@ public class BlockLabel extends BlockContainer {
         this.labelAnglePar2 = labelTile.getAngle();
         switch (this.labelAnglePar2) {
             case 0:
-                this.setBlockBounds(0.94F, 0.2F, 0.3F, 1.0F, 0.4F, 0.7F);
+                this.setBlockBounds(0.94F, 0.1F, 0.3F, 1.0F, 0.3F, 0.7F);
                 break;
             case 1:
-                this.setBlockBounds(0.3F, 0.2F, 0.94F, 0.7F, 0.4F, 1.0F);
+                this.setBlockBounds(0.3F, 0.1F, 0.94F, 0.7F, 0.3F, 1.0F);
                 break;
             case 2:
-                this.setBlockBounds(0.0F, 0.2F, 0.3F, 0.06F, 0.4F, 0.7F);
+                this.setBlockBounds(0.0F, 0.1F, 0.3F, 0.06F, 0.3F, 0.7F);
                 break;
             case 3:
-                this.setBlockBounds(0.3F, 0.2F, 0.0F, 0.7F, 0.4F, 0.06F);
+                this.setBlockBounds(0.3F, 0.1F, 0.0F, 0.7F, 0.3F, 0.06F);
         }
     }
 

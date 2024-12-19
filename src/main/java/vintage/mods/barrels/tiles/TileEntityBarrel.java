@@ -9,6 +9,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.BlocksItems;
+import vintage.mods.barrels.VintageBarrelsConfig;
 import vintage.mods.barrels.blocks.BlockNewBarrel;
 import vintage.mods.barrels.items.ItemBarrelChanger;
 import vintage.mods.barrels.network.NetworkHandler;
@@ -238,7 +239,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
         double xOffset = this.xCoord + 0.5F;
         double zOffset = this.zCoord + 0.5F;
-        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, VintageBarrelsConfig.getOpenSound(worldObj.rand), 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
@@ -248,7 +249,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
         worldObj.addBlockEvent(xCoord, yCoord, zCoord, BlocksItems.BARREL.blockID, 1, numUsingPlayers);
         double xOffset = this.xCoord + 0.5F;
         double zOffset = this.zCoord + 0.5F;
-        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        this.worldObj.playSoundEffect(xOffset, this.yCoord + 0.5F, zOffset, VintageBarrelsConfig.getCloseSound(), 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     public TileEntityBarrel applyUpgradeItem(ItemBarrelChanger itemBarrelChanger, ItemStack stack) {
