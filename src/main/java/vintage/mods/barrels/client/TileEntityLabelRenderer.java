@@ -1,7 +1,6 @@
 package vintage.mods.barrels.client;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
@@ -23,12 +22,9 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
     private float kchange1;
     private float kchange2;
     private float kchange3;
-    private RenderItem itemRenderer;
-    private RenderManager renderManager;
+    private CustomItemRender itemRenderer;
 
-    public TileEntityLabelRenderer() {
-        this.renderManager = RenderManager.instance;
-    }
+    public TileEntityLabelRenderer() {}
 
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double i, double j, double k, float tick) {
@@ -71,38 +67,8 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
                 this.kchange2 = 0.03F;
                 this.kchange3 = 0.03F;
         }
-
-        switch (this.labelAngle) {
-            case 0:
-                this.degreeAngle = 270;
-                break;
-            case 1:
-                this.degreeAngle = 180;
-                break;
-            case 2:
-                this.degreeAngle = 90;
-                break;
-            case 3:
-                this.degreeAngle = 0;
-        }
-
-        this.itemRenderer = new RenderItem() {
-            public byte getMiniBlockCount(ItemStack stack) {
-                return 1;
-            }
-
-            public byte getMiniItemCount(ItemStack stack) {
-                return 1;
-            }
-
-            public boolean shouldBob() {
-                return false;
-            }
-
-            public boolean shouldSpreadItems() {
-                return false;
-            }
-        };
+        
+        this.itemRenderer = new CustomItemRender();
         this.itemRenderer.setRenderManager(RenderManager.instance);
 
         int texNum = tileEntity.getBlockMetadata();
@@ -146,7 +112,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
         }
 
         GL11.glPopMatrix();
-        boolean fancyGraphics = this.renderManager.options.fancyGraphics;
+        boolean rotateItemInsideLabel = VintageBarrelsConfig.ROTATE_ITEM_INSIDE_LABEL;
         if (slot1 != null) {
             EntityItem slot1Entity = new EntityItem(null, 0.0F, 0.0F, 0.0F, slot1);
             slot1Entity.hoverStart = 0.0F;
@@ -154,7 +120,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslated(i + (double)this.ichange1, j + 0.22, k + (double)this.kchange1);
             if (Refs.isBlock(slot1)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
-            } else if (fancyGraphics) {
+            } else if (rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
@@ -165,7 +131,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
                 GL11.glScalef(0.35F, 0.35F, 0.35F);
             }
 
-            this.itemRenderer.doRenderItem(slot1Entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+            this.itemRenderer.doRenderItem(slot1Entity, 0.0, 0.0, 0.0, 0.0F, rotateItemInsideLabel);
             GL11.glPopMatrix();
         }
 
@@ -176,7 +142,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslated(i + (double)this.ichange3, j + (double)0.14F, k + (double)this.kchange3);
             if (Refs.isBlock(slot2)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
-            } else if (fancyGraphics) {
+            } else if (rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
@@ -198,7 +164,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
                 GL11.glTranslated(0.0F, 0.01F, 0.0F);
             }
 
-            this.itemRenderer.doRenderItem(slot2Entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+            this.itemRenderer.doRenderItem(slot2Entity, 0.0, 0.0, 0.0, 0.0F, rotateItemInsideLabel);
             GL11.glPopMatrix();
         }
 
@@ -207,9 +173,9 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             slot3Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
             GL11.glTranslated(i + (double)this.ichange2, j + (double)0.22F, k + (double)this.kchange2);
-            if (fancyGraphics && Refs.isBlock(slot3)) {
+            if (rotateItemInsideLabel && Refs.isBlock(slot3)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
-            } else if (fancyGraphics) {
+            } else if (rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
@@ -220,7 +186,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
                 GL11.glScalef(0.35F, 0.35F, 0.35F);
             }
 
-            this.itemRenderer.doRenderItem(slot3Entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+            this.itemRenderer.doRenderItem(slot3Entity, 0.0, 0.0, 0.0, 0.0F, rotateItemInsideLabel);
             GL11.glPopMatrix();
         }
 
