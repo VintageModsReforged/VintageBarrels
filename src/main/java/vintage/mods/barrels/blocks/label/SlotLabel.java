@@ -3,8 +3,9 @@ package vintage.mods.barrels.blocks.label;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import vintage.mods.barrels.utils.IFilterSlot;
 
-public class SlotLabel extends Slot {
+public class SlotLabel extends Slot implements IFilterSlot {
 
     final ContainerLabel labelContainer;
 
@@ -18,6 +19,6 @@ public class SlotLabel extends Slot {
     }
 
     public int getSlotStackLimit() {
-        return 1;
+        return 0;
     }
 }
