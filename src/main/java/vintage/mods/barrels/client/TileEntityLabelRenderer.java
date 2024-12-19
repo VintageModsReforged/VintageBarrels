@@ -162,7 +162,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
                 GL11.glTranslated(0.0F, 0.04F, 0.0F);
                 GL11.glScalef(0.45F, 0.45F, 0.45F);
             } else {
-                GL11.glScalef(0.35F, 0.25F, 0.35F);
+                GL11.glScalef(0.35F, 0.35F, 0.35F);
             }
 
             this.itemRenderer.doRenderItem(slot1Entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
