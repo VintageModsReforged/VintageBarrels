@@ -120,7 +120,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslated(i + (double)this.ichange1, j + 0.22, k + (double)this.kchange1);
             if (Refs.isBlock(slot1)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
-            } else if (rotateItemInsideLabel) {
+            } else if (!rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
@@ -142,7 +142,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslated(i + (double)this.ichange3, j + (double)0.14F, k + (double)this.kchange3);
             if (Refs.isBlock(slot2)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
-            } else if (rotateItemInsideLabel) {
+            } else if (!rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
@@ -175,7 +175,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslated(i + (double)this.ichange2, j + (double)0.22F, k + (double)this.kchange2);
             if (rotateItemInsideLabel && Refs.isBlock(slot3)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
-            } else if (rotateItemInsideLabel) {
+            } else if (!rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
