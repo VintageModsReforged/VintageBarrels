@@ -45,4 +45,5 @@ dependencies {
 	modImplementation files("libs/ironchests.zip")
 	modImplementation files("libs/InvTweaks.jar")
 	modImplementation files("libs/multipage_chest.zip")
+	modImplementation files("libs/backpack.zip")
 }

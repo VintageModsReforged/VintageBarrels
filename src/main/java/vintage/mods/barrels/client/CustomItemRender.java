@@ -201,18 +201,22 @@ public class CustomItemRender extends RenderItem {
         GL11.glPopMatrix();
     }
 
+    @Override
     public byte getMiniBlockCount(ItemStack stack) {
         return 1;
     }
 
+    @Override
     public byte getMiniItemCount(ItemStack stack) {
         return 1;
     }
 
+    @Override
     public boolean shouldBob() {
         return false;
     }
 
+    @Override
     public boolean shouldSpreadItems() {
         return false;
     }

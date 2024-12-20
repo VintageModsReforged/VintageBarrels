@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 import vintage.mods.barrels.BarrelTransporters;
 import vintage.mods.barrels.Refs;
 import vintage.mods.barrels.VintageBarrels;
+import vintage.mods.barrels.VintageBarrelsConfig;
 import vintage.mods.barrels.blocks.BlockBarrel;
 
 import java.util.List;
@@ -103,6 +105,12 @@ public class ItemTransporter extends Item {
 
             if (player.getActivePotionEffect(Potion.hunger) == null || player.getActivePotionEffect(Potion.hunger).getDuration() < 20) {
                 player.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 60, 0));
+            }
+
+            if (VintageBarrelsConfig.RESTRICT_TRANSPORTATION) {
+                if (!(player.openContainer instanceof ContainerPlayer)) { // prevent inventories that aren't player inventory from opening
+                    player.closeScreen();
+                }
             }
         }
     }
