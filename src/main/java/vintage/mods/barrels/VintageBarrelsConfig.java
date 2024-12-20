@@ -20,6 +20,8 @@ public class VintageBarrelsConfig {
     public static int TEXT_COLOR;
     public static boolean TEXT_SHADOW;
     public static boolean USE_CUSTOM_SOUNDS;
+    public static boolean ROTATE_ITEM_INSIDE_LABEL;
+    public static boolean RESTRICT_TRANSPORTATION;
 
     public static void initMainConfig() {
         MAIN_CONFIG = new Configuration(new File((File) FMLInjectionData.data()[6], "config/vintagebarrels.cfg"));
@@ -29,6 +31,8 @@ public class VintageBarrelsConfig {
         TEXT_COLOR = ConfigHelper.getId(MAIN_CONFIG, "general", "textColor", 16777215);
         TEXT_SHADOW = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
         USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
+        ROTATE_ITEM_INSIDE_LABEL = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "rotateItemInsideLabel", false, "Whether or not should item rotate inside Wooden Label.");
+        RESTRICT_TRANSPORTATION = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "restrictTransportation", true, "Prevent Player from being able to carry lots of Full Inventory Transporters using Backpacks and other portable inventories.");
 
         BARREL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "barrel", BARREL_ID);
         WOOD_LABEL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "woodLabel", WOOD_LABEL_ID);
