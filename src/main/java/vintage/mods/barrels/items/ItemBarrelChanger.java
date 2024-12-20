@@ -69,23 +69,27 @@ public class ItemBarrelChanger extends Item {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) return false;
+
         TileEntity te = world.getBlockTileEntity(x, y, z);
+        short facing;
+
         TileEntityBarrel newBarrel;
         if (te instanceof TileEntityBarrel && !(te instanceof TileEntityWoodBarrel)) {
             TileEntityBarrel entityBarrel = (TileEntityBarrel) te;
+            facing = entityBarrel.getFacing();
             newBarrel = entityBarrel.applyUpgradeItem(this, stack);
             if (newBarrel == null) {
                 return false;
             }
         } else if (te instanceof TileEntityWoodBarrel) {
             TileEntityWoodBarrel tec = (TileEntityWoodBarrel) te;
+            facing = tec.getFacing();
             if (tec.numUsingPlayers > 0) {
                 return false;
             }
             if (!getType(stack).canUpgrade(BarrelType.WOOD)) {
                 return false;
             }
-            // Force old TE out of the world so that adjacent chests can update
             newBarrel = BarrelType.makeEntity(getTargetChestOrdinal(stack));
             int newSize = newBarrel.barrelContents.length;
             ItemStack[] chestContents = tec.barrelContents;
@@ -104,6 +108,7 @@ public class ItemBarrelChanger extends Item {
         }
         world.setBlockTileEntity(x, y, z, newBarrel);
         world.setBlockMetadataWithNotify(x, y, z, newBarrel.getType().ordinal(), 3);
+        newBarrel.setFacing(facing);
         stack.stackSize = 0;
         return true;
     }
