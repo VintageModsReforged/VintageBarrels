@@ -58,22 +58,24 @@ public class ItemBarrelChanger extends Item {
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int X, int Y, int Z, int side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) return false;
         TileEntity te = world.getBlockTileEntity(X, Y, Z);
+        short facing;
         TileEntityBarrel newBarrel;
         if (te instanceof TileEntityBarrel && !(te instanceof TileEntityWoodBarrel)) {
             TileEntityBarrel entityBarrel = (TileEntityBarrel) te;
+            facing = entityBarrel.getFacing();
             newBarrel = entityBarrel.applyUpgradeItem(this, stack);
             if (newBarrel == null) {
                 return false;
             }
         } else if (te instanceof TileEntityWoodBarrel) {
             TileEntityWoodBarrel tec = (TileEntityWoodBarrel) te;
+            facing = tec.getFacing();
             if (tec.numUsingPlayers > 0) {
                 return false;
             }
             if (!getType(stack).canUpgrade(BarrelType.WOOD)) {
                 return false;
             }
-            // Force old TE out of the world so that adjacent chests can update
             newBarrel = BarrelType.makeEntity(getTargetChestOrdinal(stack));
             int newSize = newBarrel.barrelContents.length;
             ItemStack[] chestContents = tec.barrelContents;
@@ -84,11 +86,8 @@ public class ItemBarrelChanger extends Item {
             for (int i = 0; i < Math.min(newSize, chestContents.length); i++) {
                 chestContents[i] = null;
             }
-            // Clear the old block out
             world.setBlockAndMetadataWithNotify(X, Y, Z, 0, 0);
-            // Force the Chest TE to reset it's knowledge of neighbouring blocks
             tec.updateContainingBlockInfo();
-            // And put in our block instead
             world.setBlockAndMetadataWithNotify(X, Y, Z, block.blockID, newBarrel.getType().ordinal());
             world.scheduleBlockUpdate(X, Y, Z, block.blockID, newBarrel.getType().ordinal());
         } else {
@@ -96,6 +95,7 @@ public class ItemBarrelChanger extends Item {
         }
         world.setBlockTileEntity(X, Y, Z, newBarrel);
         world.setBlockMetadataWithNotify(X, Y, Z, newBarrel.getType().ordinal());
+        newBarrel.setFacing(facing);
         stack.stackSize = 0;
         return true;
     }
