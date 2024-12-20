@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import vintage.mods.barrels.tiles.TileEntityLabel;
+import vintage.mods.barrels.utils.IFilterSlot;
 
 public class ContainerLabel extends Container {
 
@@ -39,30 +40,76 @@ public class ContainerLabel extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
-        ItemStack stack = null;
-        Slot slotObject = (Slot)this.inventorySlots.get(slot);
-        if (slotObject != null && slotObject.getHasStack()) {
-            ItemStack stackInSlot = slotObject.getStack();
-            stack = stackInSlot.copy();
-            if (slot < 3) {
-                if (!this.mergeItemStack(stackInSlot, 3, 39, true)) {
-                    return null;
-                }
-            } else if (!this.mergeItemStack(stackInSlot, 0, 3, false)) {
-                return null;
-            }
+        return null;
+    }
 
-            if (stackInSlot.stackSize == 0) {
-                slotObject.putStack(null);
-            } else {
-                slotObject.onSlotChanged();
+    @Override
+    public ItemStack slotClick(int slotIndex, int mouseButton, int modifier, EntityPlayer player) {
+        Slot slot = slotIndex < 0 ? null : (Slot) this.inventorySlots.get(slotIndex);
+        if (slot instanceof IFilterSlot) { // our slots
+            return setGhostStack(slot, mouseButton, modifier, player);
+        }
+        return super.slotClick(slotIndex, mouseButton, modifier, player);
+    }
+
+    public ItemStack setGhostStack(Slot slot, int mouseButton, int modifier, EntityPlayer player) {
+        ItemStack stack = null;
+        if (mouseButton == 2) {
+            slot.putStack(null);
+        } else if (mouseButton == 0 || mouseButton == 1) {
+            InventoryPlayer playerInv = player.inventory;
+            slot.onSlotChanged();
+            ItemStack stackSlot = slot.getStack();
+            ItemStack stackHeld = playerInv.getItemStack();
+            if (stackSlot != null) {
+                stack = stackSlot.copy();
             }
-            if (stackInSlot.stackSize == stack.stackSize) {
-                return null;
+            if (stackSlot == null) {
+                if (stackHeld != null && slot.isItemValid(stackHeld)) {
+                    setFilterSlot(slot, stackHeld, mouseButton);
+                }
+            } else if (stackHeld == null) {
+                changeFilterSlot(slot, mouseButton, modifier);
+                slot.onPickupFromSlot(player, playerInv.getItemStack());
+            } else if (slot.isItemValid(stackHeld)) {
+                if (stackSlot.isItemEqual(stackHeld)) {
+                    changeFilterSlot(slot, mouseButton, modifier);
+                } else {
+                    setFilterSlot(slot, stackHeld, mouseButton);
+                }
             }
-            slotObject.onPickupFromSlot(player, stackInSlot);
+        }
+        return stack;
+    }
+
+    protected void changeFilterSlot(Slot slot, int mouseButton, int modifier) {
+        ItemStack stackSlot = slot.getStack();
+        int stackSize;
+        if (modifier == 1) {
+            stackSize = mouseButton == 0 ? (stackSlot.stackSize + 1) / 2 : stackSlot.stackSize * 2;
+        } else {
+            stackSize = mouseButton == 0 ? stackSlot.stackSize - 1 : stackSlot.stackSize + 1;
         }
 
-        return stack;
+        if (stackSize > slot.getSlotStackLimit()) {
+            stackSize = slot.getSlotStackLimit();
+        }
+
+        stackSlot.stackSize = stackSize;
+
+        if (stackSlot.stackSize <= 0) {
+            slot.putStack(null);
+        }
+    }
+
+    protected void setFilterSlot(Slot slot, ItemStack stackHeld, int mouseButton) {
+        int stackSize = mouseButton == 0 ? stackHeld.stackSize : 1;
+        if (stackSize > slot.getSlotStackLimit()) {
+            stackSize = slot.getSlotStackLimit();
+        }
+        ItemStack phantomStack = stackHeld.copy();
+        phantomStack.stackSize = stackSize;
+
+        slot.putStack(phantomStack);
     }
 }
