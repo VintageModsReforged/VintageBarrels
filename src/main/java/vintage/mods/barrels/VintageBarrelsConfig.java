@@ -16,6 +16,7 @@ public class VintageBarrelsConfig {
     public static int WOOD_LABEL_ID = 1077;
     public static int UPGRADE_ID = 19602;
     public static int TRANSPORTER_ID = 19603;
+    public static int NAMING_TOOL_ID = 19611;
 
     public static int TEXT_COLOR;
     public static boolean TEXT_SHADOW;
@@ -39,6 +40,7 @@ public class VintageBarrelsConfig {
 
         UPGRADE_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "upgrade", UPGRADE_ID);
         TRANSPORTER_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "transporter", TRANSPORTER_ID);
+        NAMING_TOOL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "namingTool", NAMING_TOOL_ID);
 
         if (MAIN_CONFIG != null) {
             MAIN_CONFIG.save();

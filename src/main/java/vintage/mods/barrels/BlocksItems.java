@@ -10,6 +10,8 @@ import vintage.mods.barrels.blocks.label.BlockLabel;
 import vintage.mods.barrels.items.ItemBarrel;
 import vintage.mods.barrels.items.ItemBarrelChanger;
 import vintage.mods.barrels.items.ItemLabel;
+import vintage.mods.barrels.items.namingtool.ItemNameTag;
+import vintage.mods.barrels.tiles.TileEntityLabel;
 
 public class BlocksItems {
 
@@ -27,6 +29,8 @@ public class BlocksItems {
     public static ItemStack WOOD_COPPER;
     public static ItemStack DIAMOND_OBSIDIAN;
 
+    public static Item NAME_TAG;
+
     public static void initBlocks() {
         BARREL = new BlockBarrel(VintageBarrelsConfig.BARREL_ID);
         GameRegistry.registerBlock(BARREL, ItemBarrel.class, "barrel");
@@ -43,6 +47,7 @@ public class BlocksItems {
         DIAMOND_OBSIDIAN = new ItemStack(CHANGER, 1, 8);
 
         BarrelTransporters.initItems(VintageBarrelsConfig.TRANSPORTER_ID);
+        NAME_TAG = new ItemNameTag();
 
         for (BarrelType typ : BarrelType.values()) {
             GameRegistry.registerTileEntity(typ.clazz, "barrel." + typ.name().toLowerCase());
@@ -50,7 +55,8 @@ public class BlocksItems {
         }
         LABEL = new BlockLabel();
         GameRegistry.registerBlock(LABEL, ItemLabel.class, "label");
-
+        GameRegistry.registerTileEntity(TileEntityLabel.class, "VintageWoodenLabel");
+        
         NetworkRegistry.instance().registerGuiHandler(VintageBarrels.instance, VintageBarrels.PROXY);
     }
 }

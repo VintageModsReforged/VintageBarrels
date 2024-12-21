@@ -1,4 +1,4 @@
-package vintage.mods.barrels.client;
+package vintage.mods.barrels.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

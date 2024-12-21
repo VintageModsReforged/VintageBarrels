@@ -15,7 +15,7 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityLabel extends TileEntity implements IInventory {
 
-    private ItemStack[] labelInventory = new ItemStack[3];
+    private ItemStack[] labelInventory = new ItemStack[4];
     public int labelAngle;
 
     public TileEntityLabel() {}
@@ -36,7 +36,6 @@ public class TileEntityLabel extends TileEntity implements IInventory {
         if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
             stack.stackSize = this.getInventoryStackLimit();
         }
-
         this.worldObj.updateAllLightTypes(this.xCoord, this.yCoord, this.zCoord);
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
@@ -120,7 +119,7 @@ public class TileEntityLabel extends TileEntity implements IInventory {
 
     @Override
     public String getInvName() {
-        return "jds.tileentitywoodlabel";
+        return "";
     }
 
     public void setAngle(int angle) {

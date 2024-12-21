@@ -5,11 +5,13 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 import vintage.mods.barrels.Refs;
 import vintage.mods.barrels.VintageBarrelsConfig;
 import vintage.mods.barrels.tiles.TileEntityLabel;
+import vintage.mods.barrels.utils.CustomItemRender;
 
 public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
 
@@ -96,19 +98,30 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
         ItemStack slot1 = labelTile.getLabelStack(1);
         ItemStack slot2 = labelTile.getLabelStack(0);
         ItemStack slot3 = labelTile.getLabelStack(2);
-        if (slot1 != null) {
-            String text = slot1.getDisplayName();
-            this.renderText(text);
+        ItemStack nameSlot = labelTile.getStackInSlot(3);
+        String labelText = "";
+        String namingToolLabelName = "";
+        if (nameSlot != null) {
+            NBTTagCompound tag = Refs.getOrCreateTag(nameSlot);
+            namingToolLabelName = tag.getString("labelName");
         }
 
-        if (slot2 != null) {
-            String text = slot2.getDisplayName();
-            this.renderText(text);
+        if (!"".equals(namingToolLabelName)) {
+            labelText = namingToolLabelName;
+        } else {
+            if (slot1 != null) {
+                labelText = slot1.getDisplayName();
+            }
+            if (slot2 != null) {
+                labelText = slot2.getDisplayName();
+            }
+            if (slot3 != null) {
+                labelText = slot3.getDisplayName();
+            }
         }
 
-        if (slot3 != null) {
-            String text = slot3.getDisplayName();
-            this.renderText(text);
+        if (!"".equals(labelText)) {
+            this.renderText(labelText);
         }
 
         GL11.glPopMatrix();

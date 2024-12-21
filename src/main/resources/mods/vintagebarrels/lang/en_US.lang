@@ -18,6 +18,7 @@ item.woodCopper.name=Wooden To Copper Barrel Upgrade
 item.diamondObsidian.name=Diamond To Obsidian Barrel Upgrade
 
 item.transporter.name=Inventory Transporter (%s)
+item.namingTool.name=Naming Tool
 
 label.oak.name=Oak Wood Label
 label.spruce.name=Spruce Wood Label
@@ -34,4 +35,19 @@ transporter.obsidian=Obsidian
 transporter.diamond=Diamond
 
 tooltip.transporter.content=Contains %s items.
+tooltip.namingTool.labelName=Name: %s
 gui.label.title=Wooden Label
+gui.namingTool=Insert New Name:
+
+gui.namingTool.ok=Ok
+gui.namingTool.cancel=Cancel
+
+namingTool.message.info.press=Press %1$s for more info
+namingTool.tooltip.desc=Used to set custom names for Wooden Labels.
+namingTool.message.info.click.block=%1$s and %2$s on Wooden Label to %3$s.
+namingTool.message.info.click.block.action=Set the display name for Wooden Label
+namingTool.tooltip.desc1=The InWorld action only works if there is a Naming Tool inside already!
+namingTool.message.action.info=%1$s to open the GUI and set the name.
+
+key.mouse.right=Right Click
+key.sneak=Sneak
