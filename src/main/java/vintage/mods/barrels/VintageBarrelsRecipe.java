@@ -226,6 +226,11 @@ public class VintageBarrelsRecipe {
                 "S S", "SSS", " # ",
                 'S', Item.stick,
                 '#', "gemDiamond");
+
+
+        oredictRecipe(new ItemStack(BlocksItems.NAME_TAG),
+                "XXX", "XIX", "XXX",
+                'I', "ingotIron", 'X', Item.paper);
     }
 
     public static void oredictRecipe(ItemStack stack, Object... args) {

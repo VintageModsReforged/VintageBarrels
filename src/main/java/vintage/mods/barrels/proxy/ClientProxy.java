@@ -3,13 +3,18 @@ package vintage.mods.barrels.proxy;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import org.lwjgl.input.Keyboard;
 import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.VintageBarrelsConfig;
 import vintage.mods.barrels.client.*;
+import vintage.mods.barrels.items.namingtool.GuiNamingTag;
+import vintage.mods.barrels.items.namingtool.ItemNamingTool;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
 import vintage.mods.barrels.tiles.TileEntityLabel;
 
@@ -44,6 +49,10 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        ItemStack equippedStack = player.getCurrentEquippedItem();
+        if (ID == 10 && equippedStack.getItem() instanceof ItemNamingTool) {
+            return new GuiNamingTag();
+        }
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityBarrel) {
             return GUIChest.GuiType.buildGUI(BarrelType.values()[ID], player.inventory, (TileEntityBarrel) tileEntity);
@@ -51,5 +60,9 @@ public class ClientProxy extends CommonProxy {
             TileEntityLabel tileEntityLabel = (TileEntityLabel) tileEntity;
             return new GuiLabel(player.inventory, tileEntityLabel);
         } else return null;
+    }
+
+    public static boolean isShiftKeyDown() {
+        return Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.keyCode);
     }
 }

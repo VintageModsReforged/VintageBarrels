@@ -10,11 +10,8 @@ import vintage.mods.barrels.tiles.TileEntityLabel;
 
 public class GuiLabel extends GuiContainer {
 
-    private TileEntityLabel woodLabel;
-
     public GuiLabel(InventoryPlayer inventoryPlayer, TileEntityLabel woodLabel) {
         super(new ContainerLabel(inventoryPlayer, woodLabel));
-        this.woodLabel = woodLabel;
     }
 
     protected void drawGuiContainerForegroundLayer(int var1, int var2) {

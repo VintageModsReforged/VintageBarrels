@@ -18,6 +18,7 @@ public class ContainerLabel extends Container {
         this.addSlotToContainer(this.labelSlot = new SlotLabel(this, this.tileEntity, 0, 80, 45));
         this.addSlotToContainer(this.labelSlot = new SlotLabel(this, this.tileEntity, 1, 35, 26));
         this.addSlotToContainer(this.labelSlot = new SlotLabel(this, this.tileEntity, 2, 125, 26));
+        this.addSlotToContainer(this.labelSlot = new SlotLabelTag(this, this.tileEntity, 3, 152, 62));
         this.bindPlayerInventory(inventoryPlayer);
     }
 
