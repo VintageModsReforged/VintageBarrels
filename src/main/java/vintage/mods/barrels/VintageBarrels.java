@@ -6,6 +6,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.vintage.core.platform.lang.ILangProvider;
 import mods.vintage.core.platform.lang.LangManager;
 import net.minecraft.creativetab.CreativeTabs;
@@ -70,6 +72,7 @@ public class VintageBarrels implements ILangProvider {
         return Arrays.asList(VintageBarrelsConfig.LANGUAGES);
     }
 
+    @SideOnly(Side.CLIENT)
     @ForgeSubscribe
     public void soundLoad(SoundLoadEvent e) {
         // default
