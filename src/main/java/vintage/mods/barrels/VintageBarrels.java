@@ -80,6 +80,7 @@ public class VintageBarrels implements ILangProvider {
         BlockTextureStitched.onPostStitch();
     }
 
+    @SideOnly(Side.CLIENT)
     @ForgeSubscribe
     public void soundLoad(SoundLoadEvent e) {
         // default
