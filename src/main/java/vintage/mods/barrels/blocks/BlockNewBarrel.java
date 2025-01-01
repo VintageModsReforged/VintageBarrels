@@ -50,6 +50,7 @@ public class BlockNewBarrel extends BlockContainer {
         return te instanceof TileEntityBarrel && ((TileEntityBarrel) te).isActive();
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public int getRenderType() {
         return BarrelRenderingHandler.renderId;
