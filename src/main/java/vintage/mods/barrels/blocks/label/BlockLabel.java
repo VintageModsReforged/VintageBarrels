@@ -129,6 +129,7 @@ public class BlockLabel extends BlockContainer {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public int getRenderType() {
         return ClientProxy.woodenlabelrenderID;
     }
