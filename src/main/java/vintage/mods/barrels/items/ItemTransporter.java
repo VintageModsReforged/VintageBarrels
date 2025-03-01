@@ -213,9 +213,11 @@ public class ItemTransporter extends Item {
         Block block = BlockHelper.getBlock(world, x, y, z);
         if (block == Block.chest) {
             return true;
+        } else if (block instanceof BlockBarrel) {
+            return true;
         } else if (Utils.instanceOf(block, "cpw.mods.ironchest.BlockIronChest")) {
             return true;
-        } else if (block instanceof BlockBarrel) {
+        } else if (Utils.instanceOf(block, "need4speed402.mods.barrels.BlockBarrel")) {
             return true;
         } else return Utils.instanceOf(block, "cubex2.mods.multipagechest.BlockMultiPageChest");
     }
