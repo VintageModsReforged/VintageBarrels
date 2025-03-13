@@ -13,9 +13,7 @@ import vintage.mods.barrels.tiles.TileEntityLabel;
 
 public class CommonProxy implements IGuiHandler {
 
-    public void init() {
-        GameRegistry.registerTileEntity(TileEntityLabel.class, "LabelTileEntity");
-    }
+    public void init() {}
 
     public void registerTileEntitySpecialRenderer(BarrelType typ) {}
 

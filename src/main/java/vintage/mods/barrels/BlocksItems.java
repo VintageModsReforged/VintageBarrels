@@ -55,7 +55,7 @@ public class BlocksItems {
         }
         LABEL = new BlockLabel();
         GameRegistry.registerBlock(LABEL, ItemLabel.class, "label");
-        GameRegistry.registerTileEntity(TileEntityLabel.class, "VintageWoodenLabel");
+        GameRegistry.registerTileEntity(TileEntityLabel.class, "LabelTileEntity");
         
         NetworkRegistry.instance().registerGuiHandler(VintageBarrels.instance, VintageBarrels.PROXY);
     }

@@ -24,7 +24,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void init() {
-        super.init();
         woodenlabelrenderID = RenderingRegistry.getNextAvailableRenderId();
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLabel.class, new TileEntityLabelRenderer());
         MinecraftForgeClient.registerItemRenderer(VintageBarrelsConfig.WOOD_LABEL_ID, new ItemLabelRenderer());

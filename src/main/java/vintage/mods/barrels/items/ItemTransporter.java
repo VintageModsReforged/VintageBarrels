@@ -14,8 +14,6 @@ import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
@@ -209,18 +207,14 @@ public class ItemTransporter extends Item {
     }
 
     private boolean isChestAt(World world, int x, int y, int z) {
-        int id = world.getBlockId(x, y, z);
         Block block = BlockHelper.getBlock(world, x, y, z);
-        if (block == Block.chest) {
-            return true;
-        } else if (block instanceof BlockBarrel) {
-            return true;
-        } else if (Utils.instanceOf(block, "cpw.mods.ironchest.BlockIronChest")) {
-            return true;
-        } else if (Utils.instanceOf(block, "need4speed402.mods.barrels.BlockBarrel")) {
-            return true;
-        } else return Utils.instanceOf(block, "cubex2.mods.multipagechest.BlockMultiPageChest");
+        return block == Block.chest ||
+                block instanceof BlockBarrel ||
+                Utils.instanceOf(block, "cpw.mods.ironchest.BlockIronChest") ||
+                Utils.instanceOf(block, "need4speed402.mods.barrels.BlockBarrel") ||
+                Utils.instanceOf(block, "cubex2.mods.multipagechest.BlockMultiPageChest");
     }
+
 
     public void saveContainerInfo(ItemStack transporter, World world, int x, int y, int z) {
         NBTTagCompound tag = Refs.getOrCreateTag(transporter);
@@ -235,40 +229,61 @@ public class ItemTransporter extends Item {
         return new int[]{tag.getInteger("ContainerID"), tag.getInteger("ContainerMeta")};
     }
 
-    private void moveItemsIntoStack(IInventory chest, ItemStack stack) {
-        if (stack.stackTagCompound == null) {
-            stack.setTagCompound(new NBTTagCompound());
+    private void moveItemsIntoStack(IInventory chest, ItemStack transporter) {
+        if (transporter.stackTagCompound == null) {
+            transporter.setTagCompound(new NBTTagCompound());
         }
+
         NBTTagList nbtList = new NBTTagList();
         for (int i = 0; i < chest.getSizeInventory(); ++i) {
-            if (chest.getStackInSlot(i) != null) {
-                NBTTagCompound slotTag = new NBTTagCompound();
-                slotTag.setShort("Slot", (short) i);
-                chest.getStackInSlot(i).copy().writeToNBT(slotTag);
+            if (chest.getStackInSlot(i) != null) { // skip empty slots
+
+                // create a tag for each entry of our inventory
+                NBTTagCompound itemTag = new NBTTagCompound();
+                ItemStack stack = chest.getStackInSlot(i).copy();
+
+                // each tag will contain 3 infos
+                // slot
+                itemTag.setShort("Slot", (short) i);
+                // stack content
+                itemTag.setTag("Content", stack.writeToNBT(new NBTTagCompound()));
+                // stack amount for items that have stackSize > maxStackSize like barrels, etc.
+                itemTag.setInteger("Amount", stack.stackSize);
+                // set slot content to null after serializing
                 chest.setInventorySlotContents(i, null);
-                nbtList.appendTag(slotTag);
+                // add entry tag to list
+                nbtList.appendTag(itemTag);
             }
         }
-        stack.stackTagCompound.setTag("Items", nbtList);
+        // add newly created list to transporter under Items tag
+        transporter.stackTagCompound.setTag("Items", nbtList);
     }
 
-    private void moveItemsIntoChest(ItemStack stack, IInventory chest) {
-        NBTTagList nbtList = stack.stackTagCompound.getTagList("Items");
+
+    private void moveItemsIntoChest(ItemStack transporter, IInventory chest) {
+        // get the common list named Items
+        NBTTagList nbtList = transporter.stackTagCompound.getTagList("Items");
         for (int i = 0; i < nbtList.tagCount(); ++i) {
-            NBTTagCompound tag = (NBTTagCompound) nbtList.tagAt(i);
-            NBTBase slotTag = tag.getTag("Slot");
-            int j = -1;
-            if (slotTag instanceof NBTTagByte) {
-                j = tag.getByte("Slot") & 255;
-            } else {
-                j = tag.getShort("Slot");
-            }
-            if (j >= 0 && j < chest.getSizeInventory()) {
-                chest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(tag).copy());
+            // get each entry tag
+            NBTTagCompound itemTag = (NBTTagCompound) nbtList.tagAt(i);
+
+            // read slot info
+            int slot = itemTag.getShort("Slot");
+            // read stackSize info
+            int stackCount = itemTag.getInteger("Amount");
+            // read stack info
+            ItemStack stack = ItemStack.loadItemStackFromNBT(itemTag.getCompoundTag("Content"));
+            if (stack != null) {
+                //
+                stack.stackSize = stackCount;
+                if (slot >= 0 && slot < chest.getSizeInventory()) {
+                    chest.setInventorySlotContents(slot, stack);
+                }
             }
         }
-        stack.stackTagCompound.getTags().remove(nbtList);
+        transporter.stackTagCompound.removeTag("Items");
     }
+
 
     @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
@@ -277,27 +292,25 @@ public class ItemTransporter extends Item {
         super.addInformation(stack, player, list, debug);
         NBTTagCompound tag = Refs.getOrCreateTag(stack);
         boolean isFull = tag.getBoolean(FULL_TAG);
-        if (isFull) {
+
+        if (isFull && stack.stackTagCompound != null) {
             int numItems = 0;
             NBTTagList nbtList = stack.stackTagCompound.getTagList("Items");
-            for (int i = 0; i < nbtList.tagCount(); ++i) {
-                NBTTagCompound inventoryTag = (NBTTagCompound) nbtList.tagAt(i);
-                NBTBase slotTag = inventoryTag.getTag("Slot");
-                int j = -1;
-                if (slotTag instanceof NBTTagByte) {
-                    j = inventoryTag.getByte("Slot") & 255;
-                } else {
-                    j = inventoryTag.getShort("Slot");
-                }
 
-                if (j >= 0) {
-                    ItemStack itemstack = ItemStack.loadItemStackFromNBT(inventoryTag);
-                    if (itemstack != null) {
-                        numItems += itemstack.stackSize;
-                    }
+            for (int i = 0; i < nbtList.tagCount(); i++) {
+                NBTTagCompound itemTag = (NBTTagCompound) nbtList.tagAt(i);
+                ItemStack itemStack = ItemStack.loadItemStackFromNBT(itemTag.getCompoundTag("Content"));
+                int stackCount = itemTag.getInteger("Amount");
+
+                if (itemStack != null) {
+                    numItems += stackCount;
                 }
             }
-            list.add(FormattedTranslator.AQUA.format("tooltip.transporter.content", FormattedTranslator.YELLOW.literal(numItems + "")));
+
+            list.add(FormattedTranslator.AQUA.format(
+                    "tooltip.transporter.content",
+                    FormattedTranslator.YELLOW.literal(String.valueOf(numItems))
+            ));
         }
     }
 }
