@@ -41,7 +41,7 @@ dependencies {
 	forge "net.minecraftforge:forge:${forgeVersion}:universal@zip"
 	mappings "net.minecraftforge:forge:${forgeVersion}:src@zip"
 	
-	modImplementation files("libs/VintageCore-1.5.2-1.0.3.1-dev.jar")
+	modImplementation files("libs/VintageCore-1.5.2-1.0.5-dev.jar")
 	modImplementation files("libs/ironchests.zip")
 	modImplementation files("libs/InvTweaks.jar")
 	modImplementation files("libs/multipage_chest.zip")

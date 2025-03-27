@@ -1,10 +1,8 @@
 package vintage.mods.barrels;
 
-import cpw.mods.fml.relauncher.FMLInjectionData;
 import mods.vintage.core.helpers.ConfigHelper;
 import net.minecraftforge.common.Configuration;
 
-import java.io.File;
 import java.util.Random;
 
 public class VintageBarrelsConfig {
@@ -25,10 +23,10 @@ public class VintageBarrelsConfig {
     public static boolean RESTRICT_TRANSPORTATION;
 
     public static void initMainConfig() {
-        MAIN_CONFIG = new Configuration(new File((File) FMLInjectionData.data()[6], "config/vintagebarrels.cfg"));
+        MAIN_CONFIG = ConfigHelper.getConfigFor("vintagebarrels");
         MAIN_CONFIG.load();
 
-        LANGUAGES = ConfigHelper.getStrings(MAIN_CONFIG, "languages", "localization_list", new String[] { "en_US", "ru_RU" }, "Supported localizations.");
+        LANGUAGES = ConfigHelper.getLocalizations(MAIN_CONFIG, new String[] { "en_US", "ru_RU" }, Refs.ID);
         TEXT_COLOR = ConfigHelper.getId(MAIN_CONFIG, "general", "textColor", 16777215);
         TEXT_SHADOW = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
         USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
