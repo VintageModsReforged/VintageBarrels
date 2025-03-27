@@ -5,7 +5,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.vintage.core.platform.lang.ILangProvider;
@@ -27,9 +26,7 @@ import java.util.List;
 @NetworkMod(channels = { Refs.ID }, clientSideRequired = true, packetHandler = NetworkHandler.class)
 public class VintageBarrels implements ILangProvider {
 
-    public static final CreativeTabs TAB = new CreativeTabs(Refs.ID) {{
-            LanguageRegistry.instance().addStringLocalization("itemGroup." + Refs.ID, Refs.NAME);
-        }
+    public static final CreativeTabs TAB = new CreativeTabs(Refs.ID) {
 
         @Override
         public Item getTabIconItem() {
@@ -54,6 +51,7 @@ public class VintageBarrels implements ILangProvider {
         BlocksItems.initBlocks();
         PROXY.init();
         LangManager.THIS.registerLangProvider(this);
+        LangManager.THIS.loadCreativeTabName(Refs.ID, Refs.NAME);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

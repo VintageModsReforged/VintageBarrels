@@ -40,5 +40,5 @@ dependencies {
 		unmapClass(["bar", "bas"])
 	}
 
-	modImplementation files("libs/VintageCore-1.4.7-1.0.3.1-dev.jar")
+	modImplementation files("libs/VintageCore-1.4.7-1.0.5-dev.jar")
 }
