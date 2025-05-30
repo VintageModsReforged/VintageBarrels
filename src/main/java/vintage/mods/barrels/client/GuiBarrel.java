@@ -1,10 +1,10 @@
 package vintage.mods.barrels.client;
 
 import invtweaks.api.ContainerGUI;
-import mods.vintage.core.platform.lang.Translator;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import vintage.mods.barrels.BarrelType;
 import vintage.mods.barrels.blocks.container.ContainerBarrelBase;
@@ -35,7 +35,7 @@ public class GuiBarrel extends GuiContainer {
             this.ySize = ySize;
             this.guiTexture = "/mods/vintagebarrels/textures/gui/" + guiTexture + ".png";
             this.mainType = mainType;
-            this.locale = Translator.format("barrel." + this.name().toLowerCase(Locale.ROOT) + ".name");
+            this.locale = StatCollector.translateToLocal("barrel." + this.name().toLowerCase(Locale.ROOT) + ".name");
         }
 
         private Container makeContainer(IInventory player, IInventory chest) {
@@ -65,7 +65,7 @@ public class GuiBarrel extends GuiContainer {
             case SILVER: case GOLD: xPos = 35; break;
             case DIAMOND: case CRYSTAL: case OBSIDIAN: xPos = 44; break;
         }
-        this.fontRenderer.drawString(Translator.format("container.inventory"), xPos, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), xPos, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
