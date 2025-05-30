@@ -15,7 +15,7 @@ public class GuiLabel extends GuiContainer {
     }
 
     protected void drawGuiContainerForegroundLayer(int var1, int var2) {
-        this.fontRenderer.drawString("Wooden Label", 8, 6, 4210752);
+        this.fontRenderer.drawString(StatCollector.translateToLocal("gui.label.title"), 8, 6, 4210752);
         this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
