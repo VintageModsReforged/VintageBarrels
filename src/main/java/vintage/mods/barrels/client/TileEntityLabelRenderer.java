@@ -1,5 +1,6 @@
 package vintage.mods.barrels.client;
 
+import mods.vintage.core.helpers.StackHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -102,7 +103,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
         String labelText = "";
         String namingToolLabelName = "";
         if (nameSlot != null) {
-            NBTTagCompound tag = Refs.getOrCreateTag(nameSlot);
+            NBTTagCompound tag = StackHelper.getOrCreateTag(nameSlot);
             namingToolLabelName = tag.getString("labelName");
         }
 
@@ -131,13 +132,13 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             slot1Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
             GL11.glTranslated(i + (double)this.ichange1, j + 0.22, k + (double)this.kchange1);
-            if (Refs.isBlock(slot1)) {
+            if (StackHelper.isBlock(slot1)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (!rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
-            if (Refs.isBlock(slot1)) {
+            if (StackHelper.isBlock(slot1)) {
                 GL11.glTranslated(0.0F, 0.04F, 0.0F);
                 GL11.glScalef(0.45F, 0.45F, 0.45F);
             } else {
@@ -153,7 +154,7 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             slot2Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
             GL11.glTranslated(i + (double)this.ichange3, j + (double)0.14F, k + (double)this.kchange3);
-            if (Refs.isBlock(slot2)) {
+            if (StackHelper.isBlock(slot2)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (!rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
@@ -161,19 +162,19 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
 
             if (slot1 == null && slot3 == null) {
                 GL11.glScalef(0.8F, 0.8F, 0.8F);
-                if (Refs.isBlock(slot2)) {
+                if (StackHelper.isBlock(slot2)) {
                     GL11.glScalef(1.0F, 1.0F, 1.0F);
                     GL11.glTranslated(0.0F, 0.06F, 0.0F);
                 } else {
                     GL11.glScalef(0.75F, 0.75F, 0.75F);
                 }
-            } else if (Refs.isBlock(slot2)) {
+            } else if (StackHelper.isBlock(slot2)) {
                 GL11.glScalef(0.45F, 0.45F, 0.45F);
             } else {
                 GL11.glScalef(0.35F, 0.35F, 0.35F);
             }
 
-            if (slot1 != null && Refs.isBlock(slot2) || slot3 != null && Refs.isBlock(slot2)) {
+            if (slot1 != null && StackHelper.isBlock(slot2) || slot3 != null && StackHelper.isBlock(slot2)) {
                 GL11.glTranslated(0.0F, 0.01F, 0.0F);
             }
 
@@ -186,13 +187,13 @@ public class TileEntityLabelRenderer extends TileEntitySpecialRenderer {
             slot3Entity.hoverStart = 0.0F;
             GL11.glPushMatrix();
             GL11.glTranslated(i + (double)this.ichange2, j + (double)0.22F, k + (double)this.kchange2);
-            if (rotateItemInsideLabel && Refs.isBlock(slot3)) {
+            if (rotateItemInsideLabel && StackHelper.isBlock(slot3)) {
                 GL11.glRotatef((float)this.degreeAngle, 0.0F, 1.0F, 0.0F);
             } else if (!rotateItemInsideLabel) {
                 GL11.glRotatef((float)(this.degreeAngle + 180), 0.0F, 1.0F, 0.0F);
             }
 
-            if (Refs.isBlock(slot3)) {
+            if (StackHelper.isBlock(slot3)) {
                 GL11.glTranslated(0.0F, 0.04F, 0.0F);
                 GL11.glScalef(0.45F, 0.45F, 0.45F);
             } else {

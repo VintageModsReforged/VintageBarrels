@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
@@ -21,37 +22,44 @@ public class BarrelRenderingHandler implements ISimpleBlockRenderingHandler {
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks) {
         renderBlocks.uvRotateNorth = 1;
         renderBlocks.uvRotateSouth = 1;
+
         Tessellator tessellator = Tessellator.instance;
         block.setBlockBoundsForItemRender();
         renderBlocks.setRenderBoundsFromBlock(block);
+
         GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderBlocks.renderFaceYPos(block, 0.0, 0.0, 0.0, renderBlocks.getBlockIconFromSideAndMetadata(block, 0, metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderBlocks.renderFaceYPos(block, 0.0, 0.0, 0.0, renderBlocks.getBlockIconFromSideAndMetadata(block, 1, metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderBlocks.renderFaceZNeg(block, 0.0, 0.0, 0.0, renderBlocks.getBlockIconFromSideAndMetadata(block, 2, metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderBlocks.renderFaceZPos(block, 0.0, 0.0, 0.0, renderBlocks.getBlockIconFromSideAndMetadata(block, 3, metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderBlocks.renderFaceXNeg(block, 0.0, 0.0, 0.0, renderBlocks.getBlockIconFromSideAndMetadata(block, 4, metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderBlocks.renderFaceXPos(block, 0.0, 0.0, 0.0, renderBlocks.getBlockIconFromSideAndMetadata(block, 5, metadata));
-        tessellator.draw();
+
+        float[][] normals = {
+                { 0.0F, -1.0F,  0.0F}, // bottom
+                { 0.0F,  1.0F,  0.0F}, // top
+                { 0.0F,  0.0F, -1.0F}, // north
+                { 0.0F,  0.0F,  1.0F}, // south
+                {-1.0F,  0.0F,  0.0F}, // west
+                { 1.0F,  0.0F,  0.0F}  // east
+        };
+
+        for (int side = 0; side < 6; side++) {
+            tessellator.startDrawingQuads();
+            tessellator.setNormal(normals[side][0], normals[side][1], normals[side][2]);
+
+            Icon icon = renderBlocks.getBlockIconFromSideAndMetadata(block, side, metadata);
+            switch (side) {
+                case 0: renderBlocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, icon); break;
+                case 1: renderBlocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, icon); break;
+                case 2: renderBlocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, icon); break;
+                case 3: renderBlocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, icon); break;
+                case 4: renderBlocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, icon); break;
+                case 5: renderBlocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, icon); break;
+            }
+
+            tessellator.draw();
+        }
+
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-        renderBlocks.uvRotateNorth = 0; // reset the rotation so other blocks aren't affected
+
+        // reset rotation flags so other blocks aren't affected
+        renderBlocks.uvRotateNorth = 0;
         renderBlocks.uvRotateSouth = 0;
     }
 

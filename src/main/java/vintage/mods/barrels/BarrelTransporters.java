@@ -23,7 +23,7 @@ public enum BarrelTransporters {
 
     BarrelTransporters(int uses) {
         this.uses = uses;
-        this.displayName = Translator.format("item.transporter.name", Translator.format("transporter." + name().toLowerCase(Locale.ROOT)));
+        this.displayName = Translator.RESET.format("item.transporter.name", Translator.RESET.format("transporter." + name().toLowerCase(Locale.ROOT)));
     }
 
     public static BarrelTransporters getFromId(int id) {

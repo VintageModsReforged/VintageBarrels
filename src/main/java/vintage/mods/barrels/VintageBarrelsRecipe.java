@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class VintageBarrelsRecipe {
@@ -23,6 +24,11 @@ public class VintageBarrelsRecipe {
     public static ItemStack JUNGLE = new ItemStack(BlocksItems.LABEL, 2, 3);
 
     public static void initRecipes() {
+
+        OreDictionary.registerOre("ingotIron", Item.ingotIron);
+        OreDictionary.registerOre("ingotGold", Item.ingotGold);
+        OreDictionary.registerOre("gemDiamond", Item.diamond);
+
         // wood
         oredictRecipe(WOOD,
                 "PSP", "P P", "PSP",

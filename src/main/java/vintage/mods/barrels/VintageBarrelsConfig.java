@@ -1,20 +1,23 @@
 package vintage.mods.barrels;
 
 import mods.vintage.core.helpers.ConfigHelper;
+import mods.vintage.core.platform.config.ItemBlockID;
+import mods.vintage.core.platform.lang.LocalizationProvider;
 import net.minecraftforge.common.Configuration;
 
 import java.util.Random;
 
-public class VintageBarrelsConfig {
+@LocalizationProvider
+public class VintageBarrelsConfig extends Configuration {
 
-    public static Configuration MAIN_CONFIG;
+    @LocalizationProvider.List(modId = Refs.ID)
     public static String[] LANGUAGES;
 
-    public static int BARREL_ID = 1076;
-    public static int WOOD_LABEL_ID = 1077;
-    public static int UPGRADE_ID = 19602;
-    public static int TRANSPORTER_ID = 19603;
-    public static int NAMING_TOOL_ID = 19611;
+    public static ItemBlockID BARREL_ID = ItemBlockID.ofBlock("barrel", 1076);
+    public static ItemBlockID WOOD_LABEL_ID = ItemBlockID.ofBlock("woodLabel", 1077);
+    public static ItemBlockID UPGRADE_ID = ItemBlockID.ofItem("upgrade", 19602);
+    public static ItemBlockID TRANSPORTER_ID = ItemBlockID.ofItem("transporter", 19603);
+    public static ItemBlockID NAMING_TOOL_ID = ItemBlockID.ofItem("namingTool", 19611);
 
     public static int TEXT_COLOR;
     public static boolean TEXT_SHADOW;
@@ -22,27 +25,15 @@ public class VintageBarrelsConfig {
     public static boolean ROTATE_ITEM_INSIDE_LABEL;
     public static boolean RESTRICT_TRANSPORTATION;
 
-    public static void initMainConfig() {
-        MAIN_CONFIG = ConfigHelper.getConfigFor("vintagebarrels");
-        MAIN_CONFIG.load();
-
-        LANGUAGES = ConfigHelper.getLocalizations(MAIN_CONFIG, new String[] { "en_US", "ru_RU" }, Refs.ID);
-        TEXT_COLOR = ConfigHelper.getId(MAIN_CONFIG, "general", "textColor", 16777215);
-        TEXT_SHADOW = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
-        USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
-        ROTATE_ITEM_INSIDE_LABEL = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "rotateItemInsideLabel", false, "Whether or not should item rotate inside Wooden Label.");
-        RESTRICT_TRANSPORTATION = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "restrictTransportation", true, "Prevent Player from being able to carry lots of Full Inventory Transporters using Backpacks and other portable inventories.");
-
-        BARREL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "barrel", BARREL_ID);
-        WOOD_LABEL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "woodLabel", WOOD_LABEL_ID);
-
-        UPGRADE_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "upgrade", UPGRADE_ID);
-        TRANSPORTER_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "transporter", TRANSPORTER_ID);
-        NAMING_TOOL_ID = ConfigHelper.getId(MAIN_CONFIG, "IDs", "namingTool", NAMING_TOOL_ID);
-
-        if (MAIN_CONFIG != null) {
-            MAIN_CONFIG.save();
-        }
+    public VintageBarrelsConfig() {
+        super(ConfigHelper.getConfigFileFor(Refs.ID));
+        load();
+        LANGUAGES = ConfigHelper.getLocalizations(this, new String[] { "en_US", "ru_RU" }, Refs.ID);
+        TEXT_COLOR = ConfigHelper.getId(this, "general", "textColor", 16777215);
+        TEXT_SHADOW = ConfigHelper.getBoolean(this, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
+        USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(this, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
+        ROTATE_ITEM_INSIDE_LABEL = ConfigHelper.getBoolean(this, "general", "rotateItemInsideLabel", false, "Whether or not should item rotate inside Wooden Label.");
+        RESTRICT_TRANSPORTATION = ConfigHelper.getBoolean(this, "general", "restrictTransportation", true, "Prevent Player from being able to carry lots of Full Inventory Transporters using Backpacks and other portable inventories.");
     }
 
     public static String getOpenSound(Random random) {

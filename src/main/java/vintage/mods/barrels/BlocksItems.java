@@ -32,10 +32,10 @@ public class BlocksItems {
     public static Item NAME_TAG;
 
     public static void initBlocks() {
-        BARREL = new BlockBarrel(VintageBarrelsConfig.BARREL_ID);
+        BARREL = new BlockBarrel(VintageBarrelsConfig.BARREL_ID.get());
         GameRegistry.registerBlock(BARREL, ItemBarrel.class, "barrel");
 
-        CHANGER = new ItemBarrelChanger(VintageBarrelsConfig.UPGRADE_ID);
+        CHANGER = new ItemBarrelChanger(VintageBarrelsConfig.UPGRADE_ID.get());
         IRON_GOLD = new ItemStack(CHANGER, 1, 0);
         GOLD_DIAMOND = new ItemStack(CHANGER, 1, 1);
         COPPER_SILVER = new ItemStack(CHANGER, 1, 2);
@@ -46,7 +46,7 @@ public class BlocksItems {
         WOOD_COPPER = new ItemStack(CHANGER, 1, 7);
         DIAMOND_OBSIDIAN = new ItemStack(CHANGER, 1, 8);
 
-        BarrelTransporters.initItems(VintageBarrelsConfig.TRANSPORTER_ID);
+        BarrelTransporters.initItems(VintageBarrelsConfig.TRANSPORTER_ID.get());
         NAME_TAG = new ItemNameTag();
 
         for (BarrelType typ : BarrelType.values()) {

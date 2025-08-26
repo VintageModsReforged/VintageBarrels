@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
+import mods.vintage.core.helpers.StackHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -56,7 +57,7 @@ public class NetworkHandler implements IPacketHandler {
                 String name = dat.readUTF().trim();
                 ItemStack currentStack = entityPlayer.getCurrentEquippedItem();
                 if (currentStack != null) {
-                    NBTTagCompound tag = Refs.getOrCreateTag(currentStack);
+                    NBTTagCompound tag = StackHelper.getOrCreateTag(currentStack);
                     tag.setString("labelName", name);
                 }
         }

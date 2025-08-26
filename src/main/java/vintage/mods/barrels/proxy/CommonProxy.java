@@ -1,11 +1,11 @@
 package vintage.mods.barrels.proxy;
 
 import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
+import mods.vintage.core.platform.config.ConfigHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import vintage.mods.barrels.BarrelType;
+import vintage.mods.barrels.*;
 import vintage.mods.barrels.blocks.container.ContainerBarrelBase;
 import vintage.mods.barrels.blocks.label.ContainerLabel;
 import vintage.mods.barrels.tiles.TileEntityBarrel;
@@ -13,7 +13,22 @@ import vintage.mods.barrels.tiles.TileEntityLabel;
 
 public class CommonProxy implements IGuiHandler {
 
-    public void init() {}
+    VintageBarrelsConfig CONFIG = new VintageBarrelsConfig();
+    ConfigHandler configHandler = new ConfigHandler(Refs.ID);
+
+    public void preInit() {
+        configHandler.initIDs(CONFIG);
+    }
+
+    public void init() {
+        configHandler.confirmIDs(CONFIG);
+        BlocksItems.initBlocks();
+    }
+
+    public void postInit() {
+        configHandler.confirmOwnership(CONFIG);
+        VintageBarrelsRecipe.initRecipes();
+    }
 
     public void registerTileEntitySpecialRenderer(BarrelType typ) {}
 

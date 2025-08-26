@@ -3,6 +3,7 @@ package vintage.mods.barrels.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.vintage.core.VintageCore;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-public class BlockBarrel extends BlockContainer {
+public class BlockBarrel extends BlockContainer implements IItemBlockIDProvider {
 
     protected final Random RANDOM = new Random();
     public static final int[][] SIDE_FACING = new int[][]{{3, 2, 0, 0, 0, 0}, {2, 3, 1, 1, 1, 1}, {1, 1, 3, 2, 5, 4}, {0, 0, 2, 3, 4, 5}, {4, 5, 4, 5, 3, 2}, {5, 4, 5, 4, 2, 3}};

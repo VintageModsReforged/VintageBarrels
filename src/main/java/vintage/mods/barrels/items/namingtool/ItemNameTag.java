@@ -1,6 +1,8 @@
 package vintage.mods.barrels.items.namingtool;
 
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.helpers.StackHelper;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
+import mods.vintage.core.platform.lang.Translator;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,10 +19,10 @@ import vintage.mods.barrels.tiles.TileEntityLabel;
 
 import java.util.List;
 
-public class ItemNameTag extends Item {
+public class ItemNameTag extends Item implements IItemBlockIDProvider {
 
     public ItemNameTag() {
-        super(VintageBarrelsConfig.NAMING_TOOL_ID);
+        super(VintageBarrelsConfig.NAMING_TOOL_ID.get());
         this.setMaxStackSize(1);
         this.setCreativeTab(VintageBarrels.TAB);
         this.setUnlocalizedName("namingTool");
@@ -28,28 +30,28 @@ public class ItemNameTag extends Item {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean debug) {
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         String labelName = tag.getString("labelName");
-        list.add(FormattedTranslator.GRAY.format("namingTool.tooltip.desc"));
+        list.add(Translator.GRAY.format("namingTool.tooltip.desc"));
         if (!"".equals(labelName)) {
-            list.add(FormattedTranslator.AQUA.format("tooltip.namingTool.labelName", FormattedTranslator.GOLD.literal(labelName)));
+            list.add(Translator.AQUA.format("tooltip.namingTool.labelName", Translator.GOLD.literal(labelName)));
         }
         if (ClientProxy.isShiftKeyDown()) {
-            list.add(FormattedTranslator.GRAY.format("namingTool.message.info.click.block", FormattedTranslator.GOLD.format("key.sneak"), FormattedTranslator.GOLD.format("key.mouse.right"), FormattedTranslator.GOLD.format("namingTool.message.info.click.block.action")));
-            list.add(FormattedTranslator.RED.format("namingTool.tooltip.desc1"));
-            list.add(FormattedTranslator.GRAY.format("namingTool.message.action.info", FormattedTranslator.GOLD.format("key.mouse.right")));
+            list.add(Translator.GRAY.format("namingTool.message.info.click.block", Translator.GOLD.format("key.sneak"), Translator.GOLD.format("key.mouse.right"), Translator.GOLD.format("namingTool.message.info.click.block.action")));
+            list.add(Translator.RED.format("namingTool.tooltip.desc1"));
+            list.add(Translator.GRAY.format("namingTool.message.action.info", Translator.GOLD.format("key.mouse.right")));
         } else {
-            list.add(FormattedTranslator.GRAY.format("namingTool.message.info.press", FormattedTranslator.WHITE.format("key.sneak")));
+            list.add(Translator.GRAY.format("namingTool.message.info.press", Translator.WHITE.format("key.sneak")));
         }
         super.addInformation(stack, player, list, debug);
     }
 
     @Override
     public String getItemDisplayName(ItemStack stack) {
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         String labelName = tag.getString("labelName");
         if (!"".equals(labelName)) {
-            return String.format("%s (%s)", super.getItemDisplayName(stack), FormattedTranslator.AQUA.literal(labelName));
+            return String.format("%s (%s)", super.getItemDisplayName(stack), Translator.AQUA.literal(labelName));
         } else return super.getItemDisplayName(stack);
     }
 
@@ -62,13 +64,13 @@ public class ItemNameTag extends Item {
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xOff, float yOff, float zOff) {
         if (world.isRemote) return false;
         TileEntity blockEntity = world.getBlockTileEntity(x, y, z);
-        NBTTagCompound newTag = Refs.getOrCreateTag(stack);
+        NBTTagCompound newTag = StackHelper.getOrCreateTag(stack);
         String labelName = newTag.getString("labelName");
         if (blockEntity instanceof TileEntityLabel) {
             TileEntityLabel labelBlockEntity = (TileEntityLabel) blockEntity;
             ItemStack existingTag = labelBlockEntity.getStackInSlot(3);
             if (existingTag != null && labelName != null) {
-                NBTTagCompound tag = Refs.getOrCreateTag(existingTag);
+                NBTTagCompound tag = StackHelper.getOrCreateTag(existingTag);
                 tag.setString("labelName", labelName);
                 world.markBlockForUpdate(x, y, z);
             }
@@ -89,7 +91,7 @@ public class ItemNameTag extends Item {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityLiving entity) {
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         String name = tag.getString("labelName");
         if (!"".equals(name)) {
             entity.func_94058_c(name);

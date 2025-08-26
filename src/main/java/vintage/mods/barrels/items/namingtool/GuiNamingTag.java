@@ -88,7 +88,7 @@ public class GuiNamingTag extends GuiScreen {
     public void drawScreen(int i, int j, float f) {
         this.drawDefaultBackground();
         this.drawGuiBackground();
-        this.fontRenderer.drawString(Translator.format("item.namingTool.name"), this.guiLeft + 6, this.guiTop + 6, 0);
+        this.fontRenderer.drawString(Translator.RESET.format("item.namingTool.name"), this.guiLeft + 6, this.guiTop + 6, 0);
         this.fontRenderer.drawString(this.NEW_NAME, this.guiLeft + 6, this.guiTop + 16, 4210752);
         this.nameField.drawTextBox();
         super.drawScreen(i, j, f);

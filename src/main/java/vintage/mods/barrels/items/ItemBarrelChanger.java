@@ -2,6 +2,7 @@ package vintage.mods.barrels.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +18,7 @@ import vintage.mods.barrels.tiles.TileEntityWoodBarrel;
 
 import java.util.List;
 
-public class ItemBarrelChanger extends Item {
+public class ItemBarrelChanger extends Item implements IItemBlockIDProvider {
 
     public Icon[] ICONS;
 

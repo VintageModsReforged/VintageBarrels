@@ -3,9 +3,10 @@ package vintage.mods.barrels.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.vintage.core.helpers.BlockHelper;
-import mods.vintage.core.helpers.Utils;
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.helpers.StackHelper;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
 import mods.vintage.core.platform.lang.Translator;
+import mods.vintage.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -29,7 +30,7 @@ import vintage.mods.barrels.blocks.BlockBarrel;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemTransporter extends Item {
+public class ItemTransporter extends Item implements IItemBlockIDProvider {
 
     public Icon[] EMPTY;
     public Icon[] FULL;
@@ -46,7 +47,7 @@ public class ItemTransporter extends Item {
 
     @Override
     public String getItemDisplayName(ItemStack stack) {
-        return Translator.format("item.transporter.name", Translator.format("transporter." + this.TYPE.name().toLowerCase(Locale.ROOT)));
+        return Translator.RESET.format("item.transporter.name", Translator.RESET.format("transporter." + this.TYPE.name().toLowerCase(Locale.ROOT)));
     }
 
     @Override
@@ -63,7 +64,7 @@ public class ItemTransporter extends Item {
 
     @Override
     public Icon getIcon(ItemStack stack, int pass) {
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         if (tag.getBoolean(FULL_TAG)) {
             return this.FULL[this.TYPE.ordinal()];
         } else return this.EMPTY[this.TYPE.ordinal()];
@@ -78,12 +79,12 @@ public class ItemTransporter extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return Refs.getOrCreateTag(stack).getBoolean(FULL_TAG);
+        return StackHelper.getOrCreateTag(stack).getBoolean(FULL_TAG);
     }
 
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean par5) {
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         boolean isFull = tag.getBoolean(FULL_TAG);
         if (isFull && entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
@@ -115,7 +116,7 @@ public class ItemTransporter extends Item {
 
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         boolean isFull = tag.getBoolean(FULL_TAG);
         if (!isFull && this.isChestAt(world, x, y, z)) {
             IInventory chestInventory = (IInventory) world.getBlockTileEntity(x, y, z);
@@ -217,7 +218,7 @@ public class ItemTransporter extends Item {
 
 
     public void saveContainerInfo(ItemStack transporter, World world, int x, int y, int z) {
-        NBTTagCompound tag = Refs.getOrCreateTag(transporter);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(transporter);
         int blockID = world.getBlockId(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
         tag.setInteger("ContainerID", blockID);
@@ -225,7 +226,7 @@ public class ItemTransporter extends Item {
     }
 
     public int[] getContainerInfo(ItemStack transporter) {
-        NBTTagCompound tag = Refs.getOrCreateTag(transporter);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(transporter);
         return new int[]{tag.getInteger("ContainerID"), tag.getInteger("ContainerMeta")};
     }
 
@@ -290,7 +291,7 @@ public class ItemTransporter extends Item {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean debug) {
         super.addInformation(stack, player, list, debug);
-        NBTTagCompound tag = Refs.getOrCreateTag(stack);
+        NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         boolean isFull = tag.getBoolean(FULL_TAG);
 
         if (isFull && stack.stackTagCompound != null) {
@@ -307,9 +308,9 @@ public class ItemTransporter extends Item {
                 }
             }
 
-            list.add(FormattedTranslator.AQUA.format(
+            list.add(Translator.AQUA.format(
                     "tooltip.transporter.content",
-                    FormattedTranslator.YELLOW.literal(String.valueOf(numItems))
+                    Translator.YELLOW.literal(String.valueOf(numItems))
             ));
         }
     }
