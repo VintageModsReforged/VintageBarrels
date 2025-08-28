@@ -4,7 +4,6 @@ public class Refs {
 
     public static final String ID = "vintagebarrels";
     public static final String NAME = "Vintage: Barrels";
-    public static final String DEPS = "required-after:VintageCore;after:inventorytweaks;";
 
     public static final String PROXY_CLIENT = "vintage.mods.barrels.proxy.ClientProxy";
     public static final String PROXY_COMMON = "vintage.mods.barrels.proxy.CommonProxy";

@@ -31,7 +31,7 @@ version = project.modVersion
 volde {
 	runs {
 		client {
-			programArg "quaternary"
+			programArg "Dev"
 		}
 	}
 }
@@ -49,9 +49,18 @@ dependencies {
 	modImplementation files("libs/Barrels 3.1-1.5.2.jar")
 }
 
-def props = ['modName', 'modid', 'modVersion', 'modDescription', 'modAuthors']
+def props = ['modName', 'modid', 'modVersion', 'modDescription', 'modAuthors', 'modDeps', 'minecraft', 'url']
 processResources {
 	filesMatching("mcmod.info") {
 		expand(project.properties.subMap(props))
 	}
+}
+
+task sourcesJar(type: Jar) {
+	archiveClassifier.set("sources")
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives sourcesJar
 }

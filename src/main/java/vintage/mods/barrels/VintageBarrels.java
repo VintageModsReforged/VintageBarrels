@@ -20,9 +20,7 @@ import vintage.mods.barrels.client.BlockTextureStitched;
 import vintage.mods.barrels.network.NetworkHandler;
 import vintage.mods.barrels.proxy.CommonProxy;
 
-@Mod(modid = Refs.ID,
-        name = Refs.NAME,
-        dependencies = Refs.DEPS, useMetadata = true)
+@Mod(modid = Refs.ID, useMetadata = true)
 @NetworkMod(channels = { Refs.ID }, clientSideRequired = true, packetHandler = NetworkHandler.class)
 public class VintageBarrels {
 
