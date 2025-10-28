@@ -17,7 +17,7 @@ compileJava.options.release.set(6) //Forge doesn't understand classes compiled t
 String minecraftVersion = "1.4.7"
 String forgeVersion = "1.4.7-6.6.2.534"
 archivesBaseName = project.modid
-version = project.mod_version
+version = project.modVersion
 
 volde {
 	forgeCapabilities {
@@ -40,5 +40,21 @@ dependencies {
 		unmapClass(["bar", "bas"])
 	}
 
-	modImplementation files("libs/VintageCore-1.4.7-1.0.7-dev.jar")
+	modImplementation files("libs/VintageCore-1.4.7-2.0.0-dev.jar")
+}
+
+def props = ['modName', 'modid', 'modVersion', 'modDescription', 'modAuthors', 'modDeps', 'minecraft', 'url']
+processResources {
+	filesMatching("mcmod.info") {
+		expand(project.properties.subMap(props))
+	}
+}
+
+task sourcesJar(type: Jar) {
+	archiveClassifier.set("sources")
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives sourcesJar
 }

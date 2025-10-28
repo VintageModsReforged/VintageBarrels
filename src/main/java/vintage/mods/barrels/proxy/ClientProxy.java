@@ -29,12 +29,22 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void init() {
-        super.init();
+    public void preInit() {
+        super.preInit();
         woodenlabelrenderID = RenderingRegistry.getNextAvailableRenderId();
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLabel.class, new TileEntityLabelRenderer());
-        MinecraftForgeClient.registerItemRenderer(VintageBarrelsConfig.WOOD_LABEL_ID, new ItemLabelRenderer());
         RenderingRegistry.registerBlockHandler(new BarrelRenderingHandler());
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        MinecraftForgeClient.registerItemRenderer(VintageBarrelsConfig.WOOD_LABEL_ID.get(), new ItemLabelRenderer());
+    }
+
+    @Override
+    public void postInit() {
+        super.postInit();
     }
 
     @Override
