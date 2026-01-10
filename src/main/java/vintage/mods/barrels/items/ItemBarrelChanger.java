@@ -1,5 +1,6 @@
 package vintage.mods.barrels.items;
 
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +17,7 @@ import vintage.mods.barrels.tiles.TileEntityWoodBarrel;
 
 import java.util.List;
 
-public class ItemBarrelChanger extends Item {
+public class ItemBarrelChanger extends Item implements IItemBlockIDProvider {
 
     public ItemBarrelChanger(int id) {
         super(id);

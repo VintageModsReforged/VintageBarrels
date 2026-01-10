@@ -2,6 +2,7 @@ package vintage.mods.barrels.blocks.label;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -27,13 +28,13 @@ import vintage.mods.barrels.tiles.TileEntityLabel;
 import java.util.List;
 import java.util.Random;
 
-public class BlockLabel extends BlockContainer {
+public class BlockLabel extends BlockContainer implements IItemBlockIDProvider {
 
     public int labelAngle;
     public int labelAnglePar2;
 
     public BlockLabel() {
-        super(VintageBarrelsConfig.WOOD_LABEL_ID, Material.wood);
+        super(VintageBarrelsConfig.WOOD_LABEL_ID.get(), Material.wood);
         this.setHardness(3.0F);
         this.setStepSound(Block.soundWoodFootstep);
         this.setCreativeTab(VintageBarrels.TAB);

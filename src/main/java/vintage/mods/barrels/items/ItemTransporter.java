@@ -3,9 +3,9 @@ package vintage.mods.barrels.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.vintage.core.helpers.BlockHelper;
-import mods.vintage.core.helpers.Utils;
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
 import mods.vintage.core.platform.lang.Translator;
+import mods.vintage.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ import vintage.mods.barrels.blocks.BlockNewBarrel;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemTransporter extends Item {
+public class ItemTransporter extends Item implements IItemBlockIDProvider {
 
     public static final String FULL_TAG = "full";
     public BarrelTransporters TYPE;
@@ -44,7 +44,7 @@ public class ItemTransporter extends Item {
 
     @Override
     public String getItemDisplayName(ItemStack stack) {
-        return Translator.format("item.transporter.name", Translator.format("transporter." + this.TYPE.name().toLowerCase(Locale.ROOT)));
+        return Translator.RESET.format("item.transporter.name", Translator.RESET.format("transporter." + this.TYPE.name().toLowerCase(Locale.ROOT)));
     }
 
     @Override
@@ -283,7 +283,7 @@ public class ItemTransporter extends Item {
                     }
                 }
             }
-            list.add(FormattedTranslator.AQUA.format("tooltip.transporter.content", FormattedTranslator.YELLOW.literal(numItems + "")));
+            list.add(Translator.AQUA.format("tooltip.transporter.content", Translator.YELLOW.literal(numItems + "")));
         }
     }
 }

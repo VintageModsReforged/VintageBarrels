@@ -1,6 +1,7 @@
 package vintage.mods.barrels.items.namingtool;
 
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.platform.config.IItemBlockIDProvider;
+import mods.vintage.core.platform.lang.Translator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,10 +16,10 @@ import vintage.mods.barrels.tiles.TileEntityLabel;
 
 import java.util.List;
 
-public class ItemNamingTool extends Item {
+public class ItemNamingTool extends Item implements IItemBlockIDProvider {
 
     public ItemNamingTool() {
-        super(VintageBarrelsConfig.NAMING_TOOL_ID);
+        super(VintageBarrelsConfig.NAMING_TOOL_ID.get());
         this.setMaxStackSize(1);
         this.setCreativeTab(VintageBarrels.TAB);
         this.setTextureFile("/mods/vintagebarrels/textures/item_textures.png");
@@ -31,16 +32,16 @@ public class ItemNamingTool extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean debug) {
         NBTTagCompound tag = Refs.getOrCreateTag(stack);
         String labelName = tag.getString("labelName");
-        list.add(FormattedTranslator.GRAY.format("namingTool.tooltip.desc"));
+        list.add(Translator.GRAY.format("namingTool.tooltip.desc"));
         if (!"".equals(labelName)) {
-            list.add(FormattedTranslator.AQUA.format("tooltip.namingTool.labelName", FormattedTranslator.GOLD.literal(labelName)));
+            list.add(Translator.AQUA.format("tooltip.namingTool.labelName", Translator.GOLD.literal(labelName)));
         }
         if (ClientProxy.isShiftKeyDown()) {
-            list.add(FormattedTranslator.GRAY.format("namingTool.message.info.click.block", FormattedTranslator.GOLD.format("key.sneak"), FormattedTranslator.GOLD.format("key.mouse.right"), FormattedTranslator.GOLD.format("namingTool.message.info.click.block.action")));
-            list.add(FormattedTranslator.RED.format("namingTool.tooltip.desc1"));
-            list.add(FormattedTranslator.GRAY.format("namingTool.message.action.info", FormattedTranslator.GOLD.format("key.mouse.right")));
+            list.add(Translator.GRAY.format("namingTool.message.info.click.block", Translator.GOLD.format("key.sneak"), Translator.GOLD.format("key.mouse.right"), Translator.GOLD.format("namingTool.message.info.click.block.action")));
+            list.add(Translator.RED.format("namingTool.tooltip.desc1"));
+            list.add(Translator.GRAY.format("namingTool.message.action.info", Translator.GOLD.format("key.mouse.right")));
         } else {
-            list.add(FormattedTranslator.GRAY.format("namingTool.message.info.press", FormattedTranslator.WHITE.format("key.sneak")));
+            list.add(Translator.GRAY.format("namingTool.message.info.press", Translator.WHITE.format("key.sneak")));
         }
         super.addInformation(stack, player, list, debug);
     }
@@ -50,7 +51,7 @@ public class ItemNamingTool extends Item {
         NBTTagCompound tag = Refs.getOrCreateTag(stack);
         String labelName = tag.getString("labelName");
         if (!"".equals(labelName)) {
-            return String.format("%s (%s)", super.getItemDisplayName(stack), FormattedTranslator.AQUA.literal(labelName));
+            return Translator.WHITE.format("%s (%s)", super.getItemDisplayName(stack), Translator.AQUA.literal(labelName));
         } else return super.getItemDisplayName(stack);
     }
 

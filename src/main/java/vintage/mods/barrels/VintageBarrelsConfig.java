@@ -13,8 +13,6 @@ public class VintageBarrelsConfig extends Configuration {
     @LocalizationProvider.List(modId = Refs.ID)
     public static String[] LANGUAGES;
 
-    public static Configuration MAIN_CONFIG;
-
     public static ItemBlockID BARREL_ID = ItemBlockID.ofBlock("barrel", 1076);
     public static ItemBlockID WOOD_LABEL_ID = ItemBlockID.ofBlock("woodLabel", 1077);
     public static ItemBlockID UPGRADE_ID = ItemBlockID.ofItem("upgrade", 19602);
@@ -30,12 +28,12 @@ public class VintageBarrelsConfig extends Configuration {
     public VintageBarrelsConfig() {
         super(ConfigHelper.getConfigFileFor(Refs.ID));
         load();
-        LANGUAGES = ConfigHelper.getLocalizations(MAIN_CONFIG, new String[] { "en_US", "ru_RU" }, Refs.ID);
-        TEXT_COLOR = ConfigHelper.getId(MAIN_CONFIG, "general", "textColor", 16777215);
-        TEXT_SHADOW = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
-        USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
-        ROTATE_ITEM_INSIDE_LABEL = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "rotateItemInsideLabel", false, "Whether or not should item rotate inside Wooden Label.");
-        RESTRICT_TRANSPORTATION = ConfigHelper.getBoolean(MAIN_CONFIG, "general", "restrictTransportation", true, "Prevent Player from being able to carry lots of Full Inventory Transporters using Backpacks and other portable inventories.");
+        LANGUAGES = ConfigHelper.getLocalizations(this, new String[] { "en_US", "ru_RU" }, Refs.ID);
+        TEXT_COLOR = ConfigHelper.getId(this, "general", "textColor", 16777215);
+        TEXT_SHADOW = ConfigHelper.getBoolean(this, "general", "textShadow", false, "Setting to true renders a shadow behind the text.");
+        USE_CUSTOM_SOUNDS = ConfigHelper.getBoolean(this, "general", "useCustomSounds", false, "Use custom sounds for barrel open/close. Located at mods/vintagebarrels/sounds/custom/");
+        ROTATE_ITEM_INSIDE_LABEL = ConfigHelper.getBoolean(this, "general", "rotateItemInsideLabel", false, "Whether or not should item rotate inside Wooden Label.");
+        RESTRICT_TRANSPORTATION = ConfigHelper.getBoolean(this, "general", "restrictTransportation", true, "Prevent Player from being able to carry lots of Full Inventory Transporters using Backpacks and other portable inventories.");
     }
 
     public static String getOpenSound(Random random) {

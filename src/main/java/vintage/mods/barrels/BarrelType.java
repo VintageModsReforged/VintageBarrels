@@ -1,24 +1,24 @@
 package vintage.mods.barrels;
 
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.platform.lang.Translator;
 import vintage.mods.barrels.tiles.*;
 
 public enum BarrelType {
-    IRON(54, 9, TileEntityIronBarrel.class, FormattedTranslator.WHITE),
-    GOLD(84, 12, TileEntityGoldBarrel.class, FormattedTranslator.YELLOW),
-    DIAMOND(104, 13, TileEntityDiamondBarrel.class, FormattedTranslator.DARK_AQUA),
-    COPPER(45, 9, TileEntityCopperBarrel.class, FormattedTranslator.GOLD),
-    SILVER(72, 12, TileEntitySilverBarrel.class, FormattedTranslator.AQUA),
-    CRYSTAL(104, 13, TileEntityCrystalBarrel.class, FormattedTranslator.AQUA),
-    OBSIDIAN(104, 13, TileEntityObsidianBarrel.class, FormattedTranslator.BLUE),
-    WOOD(27, 9, TileEntityWoodBarrel.class, FormattedTranslator.GREEN);
+    IRON(54, 9, TileEntityIronBarrel.class, Translator.WHITE),
+    GOLD(84, 12, TileEntityGoldBarrel.class, Translator.YELLOW),
+    DIAMOND(104, 13, TileEntityDiamondBarrel.class, Translator.DARK_AQUA),
+    COPPER(45, 9, TileEntityCopperBarrel.class, Translator.GOLD),
+    SILVER(72, 12, TileEntitySilverBarrel.class, Translator.AQUA),
+    CRYSTAL(104, 13, TileEntityCrystalBarrel.class, Translator.AQUA),
+    OBSIDIAN(104, 13, TileEntityObsidianBarrel.class, Translator.BLUE),
+    WOOD(27, 9, TileEntityWoodBarrel.class, Translator.GREEN);
 
     public final int size;
     private final int rowLength;
     public final Class<? extends TileEntityBarrel> clazz;
-    public final FormattedTranslator formatter;
+    public final Translator formatter;
 
-    BarrelType(int size, int rowLength, Class<? extends TileEntityBarrel> clazz, FormattedTranslator formatter) {
+    BarrelType(int size, int rowLength, Class<? extends TileEntityBarrel> clazz, Translator formatter) {
         this.size = size;
         this.rowLength = rowLength;
         this.clazz = clazz;
