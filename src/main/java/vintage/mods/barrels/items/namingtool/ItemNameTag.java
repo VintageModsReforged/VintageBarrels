@@ -51,7 +51,7 @@ public class ItemNameTag extends Item implements IItemBlockIDProvider {
         NBTTagCompound tag = StackHelper.getOrCreateTag(stack);
         String labelName = tag.getString("labelName");
         if (!"".equals(labelName)) {
-            return String.format("%s (%s)", super.getItemDisplayName(stack), Translator.AQUA.literal(labelName));
+            return Translator.WHITE.format("%s (%s)", super.getItemDisplayName(stack), Translator.AQUA.literal(labelName));
         } else return super.getItemDisplayName(stack);
     }
 
